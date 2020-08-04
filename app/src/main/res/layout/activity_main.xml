@@ -23,7 +23,7 @@
             android:paddingTop="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="충북대"
+            android:text="MenuPan"
             android:fontFamily="@font/jalnan_font"
             android:textColor="@color/darkRed"
             android:textSize="40sp"
@@ -51,36 +51,73 @@
     <LinearLayout
         android:id="@+id/linearlayout_notice"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="215dp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearlayout_top"
         >
+
+        <me.relex.circleindicator.CircleIndicator
+            android:id="@+id/indicator"
+            app:ci_drawable="@drawable/red_radius_indicator"
+            app:ci_height="7dp"
+            app:ci_width="7dp"
+            app:ci_margin="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/main_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
         </androidx.viewpager.widget.ViewPager>
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/changeviewbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_notice"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.961" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp">
+
+        <Button
+            android:id="@+id/button_cbnu"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:drawableStart="@drawable/drawable_left_cbnu_image_customize"
+            android:text="충북대학교"
+            android:textSize="30sp"
+            android:fontFamily="@font/jalnan"
+            android:textColor="@color/white"
+            android:letterSpacing="0.17"
+            android:background="@color/CBNURed"
+            android:paddingLeft="10dp"
+            />
+
+
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="20dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_for_test">
+
+    </com.google.android.gms.ads.AdView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

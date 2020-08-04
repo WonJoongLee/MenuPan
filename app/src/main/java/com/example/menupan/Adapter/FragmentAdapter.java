@@ -34,4 +34,10 @@ public class FragmentAdapter extends FragmentPagerAdapter {
         fragments.add(fragment);
     }
 
+    // Returns the page title for the top indicator
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return "Page " + position;
+    }
+
 }
