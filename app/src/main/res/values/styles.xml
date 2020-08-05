@@ -10,4 +10,16 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">@color/CBNURed</item>
+    </style>
+    <style name="SelectableItemBackground">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+    <style name="AutoComplete">
+        <item name="colorControlNormal">@color/darkRed</item>
+        <item name="colorControlActivated">@color/darkRed</item>
+    </style>
+
 </resources>

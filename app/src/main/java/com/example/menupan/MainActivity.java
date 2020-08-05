@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-//import com.example.menupan.Adapter.AutoScrollAdapter;
 import com.example.menupan.Adapter.FragmentAdapter;
 import com.example.menupan.Adapter.ImageFragment;
 import com.example.menupan.Common.LoginSignup.LoginSignupScreen;
+import com.example.menupan.Schools.ChungBuk.main_chungbuk;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -22,8 +22,6 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.ArrayList;
 
 import me.relex.circleindicator.CircleIndicator;
-
-//import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), LoginSignupScreen.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button = findViewById(R.id.button_cbnu);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), main_chungbuk.class);
                 startActivity(intent);
             }
         });
@@ -105,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
         indicator.setViewPager(viewPager);
 
         fragmentAdapter.notifyDataSetChanged();
-
 
         //viewPager 끝나는 부분
 

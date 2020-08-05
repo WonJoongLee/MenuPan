@@ -7,6 +7,9 @@
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
     <color name="red2">#F6D8D8</color>
+    <color name="red3">#d60b0e</color>
     <color name="darkRed">#C00000</color>
     <color name="CBNURed">#993B50</color>
+    <color name="CBNURedRiffle">#f1dade</color>
+    <color name="transparent">#00ff0000</color>
 </resources>

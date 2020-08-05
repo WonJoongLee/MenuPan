@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="MenuPan"
             android:fontFamily="@font/jalnan_font"
-            android:textColor="@color/darkRed"
+            android:textColor="@color/red3"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -97,10 +97,10 @@
             android:fontFamily="@font/jalnan"
             android:textColor="@color/white"
             android:letterSpacing="0.17"
-            android:background="@color/CBNURed"
+            android:background="@drawable/mainscreen_radius_ripple_effect"
             android:paddingLeft="10dp"
-            />
 
+            />
 
     </LinearLayout>
 
