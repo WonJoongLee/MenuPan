@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--switch 디자인 관리 xml-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--switch가 off일 때, 선택 되지 않았을 때-->
+    <item
+        android:drawable="@drawable/switch_track_off"
+        android:state_checked="false"/>
+    <!--switch가 on일 때, 선택 됐을 때-->
+    <item
+        android:drawable="@drawable/switch_track_on"
+        android:state_checked="true"/>
+</selector>

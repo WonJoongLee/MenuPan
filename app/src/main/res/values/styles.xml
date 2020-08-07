@@ -21,5 +21,4 @@
         <item name="colorControlNormal">@color/darkRed</item>
         <item name="colorControlActivated">@color/darkRed</item>
     </style>
-
 </resources>

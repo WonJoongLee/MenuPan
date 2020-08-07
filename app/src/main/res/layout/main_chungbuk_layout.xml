@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/cbnu_top_linear_layout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cbnu_bottom_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
         android:background="@color/red2"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="140dp">
+        app:layout_constraintBottom_toTopOf="@id/cbnu_bottom_linear_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/top_linear_layout"
@@ -32,19 +31,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="MenuPan"
-                    android:textSize="40sp"
                     android:fontFamily="@font/jalnan"
-                    android:textColor="@color/darkRed"
                     android:paddingStart="23dp"
-                    android:paddingTop="7.5dp"/>
+                    android:paddingTop="7.5dp"
+                    android:text="MenuPan"
+                    android:textColor="@color/darkRed"
+                    android:textSize="40sp" />
 
                 <ImageView
-                    android:layout_marginTop="14dp"
-                    android:layout_marginStart="5dp"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/mark_cbnu"/>
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/mark_cbnu" />
 
             </LinearLayout>
 
@@ -53,24 +52,23 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                >
+                android:layout_weight="2">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <Button
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/cbnu_filter"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:layout_marginRight="20dp"
                         android:layout_marginTop="7.5dp"
+                        android:layout_marginRight="20dp"
                         android:background="@drawable/filter_threebar"
                         android:foreground="@drawable/three_filter_bar_custom"
-                        />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -81,29 +79,28 @@
         <!-- 맨 위에 MenuPan과 필터 끝나는 부분 -->
 
         <LinearLayout
-            app:layout_constraintTop_toBottomOf="@id/top_linear_layout"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="12dp"
             android:background="@drawable/white_radius"
-            android:layout_marginTop="11dp">
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_linear_layout">
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:textColorHint="#555555"
-                android:hint="검색어를 입력하세요"
                 android:completionThreshold="1"
-                android:theme="@style/AutoComplete"
+                android:gravity="center_vertical"
+                android:hint="검색어를 입력하세요"
                 android:textColor="@color/black"
-                />
+                android:textColorHint="#555555"
+                android:theme="@style/AutoComplete" />
 
         </LinearLayout>
 
@@ -115,49 +112,218 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbnu_top_linear_layout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cbnu_top_linear_layout">
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/cbnu_linearlayout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="320dp"
+                android:layout_gravity="top|center_horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/applebackground_radius"
+                android:orientation="vertical"
+                android:visibility="invisible">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginRight="13dp"
-                    android:background="@drawable/burritoin_sample"/>
+                <!-- 이 부분에 뒤로가기 버튼, 확인 버튼, 정문~후문 라디오버튼?이나 깔쌈한 버튼, 아래에 사진 추가할 것 -->
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginRight="13dp"
-                    android:background="@drawable/menya_sample"/>
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp">
 
-                <ImageView
+                    <Button
+                        android:id="@+id/cbnu_option_back"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/white_radius_ripple_effect"
+                        android:fontFamily="@font/jalnan"
+                        android:text="Back"
+                        android:textColor="@color/black"
+                        android:textSize="16.5sp" />
+
+                    <!--View는 중간에 공백 줘서 button을 오른쪽에 붙이기 위함-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/cbnu_option_apply"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="2dp"
+                        android:background="@drawable/white_radius_ripple_effect"
+                        android:fontFamily="@font/jalnan"
+                        android:text="OK"
+                        android:textColor="@color/black"
+                        android:textSize="16.5sp" />
+
+                </LinearLayout>
+
+                <!-- 여기서부터 정문~후문 체크박스 이쁘게 해서 넣기-->
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="210dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginRight="13dp"
-                    android:layout_marginBottom="13dp"
-                    android:background="@drawable/cement_sample"/>
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:weightSum="10">
+
+                    <!--맨 왼쪽 여백 0.4만큼-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.4" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/jalnan"
+                        android:text="정문"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.3"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/jalnan"
+                        android:text="중문"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.3"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/jalnan"
+                        android:text="서문"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.3"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1.0"
+                        android:fontFamily="@font/jalnan"
+                        android:text="후문"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_weight="1.3"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <!--맨 오른쪽 여백 0.4만큼-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:gravity="center"
+                    >
+
+                    <!-- 여기서부터 정문~후문 위치 사진 넣기-->
+                    <ImageView
+                        android:layout_width="300dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/school_loaction"
+                        android:scaleType="fitCenter"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </ScrollView>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:id="@+id/cbnu_linearlayout_in_scrollview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="13dp"
+                        android:background="@drawable/burritoin_sample" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="13dp"
+                        android:background="@drawable/menya_sample" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:background="@drawable/cement_sample" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </FrameLayout>
 
     </LinearLayout>
 

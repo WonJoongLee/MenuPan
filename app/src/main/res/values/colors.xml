@@ -12,4 +12,6 @@
     <color name="CBNURed">#993B50</color>
     <color name="CBNURedRiffle">#f1dade</color>
     <color name="transparent">#00ff0000</color>
+    <color name="lightgray">#D3D3D3</color>
+    <color name="applebackgroundgray">#ECECEC</color>
 </resources>

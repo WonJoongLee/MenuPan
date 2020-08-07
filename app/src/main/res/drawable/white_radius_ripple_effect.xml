@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/lightgray">
+    <item android:id="@+id/background">
+        <!--shape안에 버튼 디자인을 넣어줘야 한다-->
+        <shape android:shape="rectangle">
+            <solid android:color="@color/white"/>
+            <corners android:radius="8dp"/>
+            <!--stroke은 테두리 설정-->
+            <stroke android:width="1dp"
+                android:color="@color/black"/>
+        </shape>
+    </item>
+</ripple>
