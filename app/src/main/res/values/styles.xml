@@ -21,4 +21,10 @@
         <item name="colorControlNormal">@color/darkRed</item>
         <item name="colorControlActivated">@color/darkRed</item>
     </style>
+
+    <style name="Switch">
+        <item name="colorControlNormal">@color/red</item>
+        <item name="colorControlActivated">@color/black</item>
+        <item name="colorControlHighlight">@color/red2</item>
+    </style>
 </resources>

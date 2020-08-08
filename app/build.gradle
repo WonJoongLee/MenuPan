@@ -30,4 +30,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
     implementation 'me.relex:circleindicator:1.2.2'
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'//커스텀 스위치 버튼
 }
