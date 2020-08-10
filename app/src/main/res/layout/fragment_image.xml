@@ -5,10 +5,9 @@
 
     <!-- 깔끔하게 보여주기 위해 scaleType과 marginTop 속성을 줍니다. -->
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/notice_image"
         android:scaleType="centerCrop"
         android:layout_marginTop="16dp"/>
 

@@ -20,12 +20,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:paddingTop="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MenuPan"
             android:fontFamily="@font/jalnan_font"
-            android:textColor="@color/red3"
+            android:paddingTop="13dp"
+            android:text="MenuPan"
+            android:textColor="@color/darkRed"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -41,10 +41,10 @@
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:src="@drawable/pictogram_user"
-            android:padding="0dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:padding="0dp"
+            android:src="@drawable/pictogram_user" />
 
     </LinearLayout>
 
@@ -52,38 +52,59 @@
         android:id="@+id/linearlayout_notice"
         android:layout_width="match_parent"
         android:layout_height="215dp"
+        android:adjustViewBounds = "true"
         android:layout_marginTop="20dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linearlayout_top"
-        >
+        app:layout_constraintBottom_toTopOf="@id/univ_list">
+        <!--원래 높이는 215dp-->
 
-        <me.relex.circleindicator.CircleIndicator
+        <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
             app:ci_drawable="@drawable/red_radius_indicator"
             app:ci_height="7dp"
             app:ci_width="7dp"
-            app:ci_margin="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="15dp"/>
+            app:ci_margin="6dp"/>
 
+
+        
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false"/>
+        
+        <!--
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_cbnu_ViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"/>
+        -->
+        <!--
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/main_viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
         </androidx.viewpager.widget.ViewPager>
+                -->
 
     </LinearLayout>
 
     <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/linearlayout_notice"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/univ_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="30dp">
+        android:paddingTop="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_notice">
 
         <Button
             android:id="@+id/button_cbnu"
@@ -91,32 +112,31 @@
             android:layout_height="80dp"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:drawableStart="@drawable/drawable_left_cbnu_image_customize"
-            android:text="충북대학교"
-            android:textSize="30sp"
-            android:fontFamily="@font/jalnan"
-            android:textColor="@color/white"
-            android:letterSpacing="0.17"
             android:background="@drawable/mainscreen_radius_ripple_effect"
+            android:drawableStart="@drawable/drawable_left_cbnu_image_customize"
+            android:fontFamily="@font/jalnan"
+            android:letterSpacing="0.17"
             android:paddingLeft="10dp"
+            android:text="충북대학교"
+            android:textColor="@color/white"
+            android:textSize="30sp"
 
             />
 
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintLeft_toLeftOf="parent"
-        ads:layout_constraintRight_toRightOf="parent"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id_for_test">
+        ads:adUnitId="@string/banner_ad_unit_id_for_test"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintRight_toRightOf="parent">
 
     </com.google.android.gms.ads.AdView>
 

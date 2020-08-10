@@ -1,6 +1,7 @@
 package com.example.menupan.Schools.ChungBuk;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -10,6 +11,10 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.menupan.R;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +29,39 @@ public class main_chungbuk extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_chungbuk_layout);
 
+        AdView mAdView;
         autoCompleteTextList = new ArrayList<String>();//리스트 생성
         Button button_cbnu_filter = (Button) findViewById(R.id.cbnu_filter);
         Button button_cbnu_back = (Button) findViewById(R.id.cbnu_option_back);
         filterView = (LinearLayout) findViewById(R.id.cbnu_linearlayout_filter);
 
+        /*광고(AdMob) 시작되는 부분*/
+        MobileAds.initialize(this, getString(R.string.admob_app_id));
+        mAdView = findViewById(R.id.main_cbnu_ads);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        //광고가 제대로 로드 되는지 Debug해보는 부분
+        mAdView.setAdListener(new AdListener(){
+
+            //광고가 문제 없이 로드시 출력되는 부분
+            @Override
+            public void onAdLoaded(){
+                Log.d("LOG", "onAdLoaded");
+            }
+
+            //광고 로드에 문제가 있을 경우 출력되는 부분
+            @Override
+            public void onAdFailedToLoad(int errorCode){
+                Log.d("LOG", "onAdFailedToLoad"+errorCode);
+            }
+        });
+        /*광고(AdMob) 부분 끝*/
+
         settingList();
 
         final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        //autoCompleteTextView.setShowSoftInputOnFocus(false);//충북대학교 화면으로 들어왔을 때 자판이 바로 올라오지 않도록 방지해주는 코드 -> 이걸 하면 아예 키보드가 안나와버림, 키보드가 다른 곳에 있을 경우(ex. 계산기)에 사용
 
         //AutoCompleteTextView에 어댑터 연결
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, autoCompleteTextList));
