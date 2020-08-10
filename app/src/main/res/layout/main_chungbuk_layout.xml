@@ -124,7 +124,7 @@
             <LinearLayout
                 android:id="@+id/cbnu_linearlayout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="320dp"
+                android:layout_height="340dp"
                 android:layout_gravity="top|center_horizontal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
@@ -176,23 +176,23 @@
                 <!-- 여기서부터 정문~후문 체크박스 이쁘게 해서 넣기-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="27dp"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:weightSum="10">
 
                     <!--맨 왼쪽 여백 0.4만큼-->
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="0.4" />
+                        android:layout_weight="0.5" />
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1.0"
+                        android:layout_height="30dp"
+                        android:layout_weight="3"
                         android:fontFamily="@font/jalnan"
                         android:text="정문"
                         android:textColor="@color/black"
@@ -202,15 +202,15 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:background="@drawable/switch_ripple_red2"
                         android:thumb="@drawable/switch_thumb"
                         android:track="@drawable/switch_track_selector" />
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1.0"
+                        android:layout_height="30dp"
+                        android:layout_weight="3"
                         android:fontFamily="@font/jalnan"
                         android:text="중문"
                         android:textColor="@color/black"
@@ -220,15 +220,37 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:background="@drawable/switch_ripple_red2"
                         android:thumb="@drawable/switch_thumb"
                         android:track="@drawable/switch_track_selector" />
 
+                    <!--맨 오른쪽 여백 0.4만큼-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="27dp"
+                    android:layout_marginTop="2dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:weightSum="10">
+
+                    <!--맨 왼쪽 여백 0.4만큼-->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="0.5" />
+
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1.0"
+                        android:layout_height="30dp"
+                        android:layout_weight="3"
                         android:fontFamily="@font/jalnan"
                         android:text="서문"
                         android:textColor="@color/black"
@@ -238,15 +260,15 @@
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
-                        android:layout_weight="1.3"
+                        android:layout_weight="1.5"
                         android:background="@drawable/switch_ripple_red2"
                         android:thumb="@drawable/switch_thumb"
                         android:track="@drawable/switch_track_selector" />
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_weight="1.0"
+                        android:layout_height="30dp"
+                        android:layout_weight="3"
                         android:fontFamily="@font/jalnan"
                         android:text="후문"
                         android:textColor="@color/black"
@@ -255,21 +277,22 @@
                     <Switch
                         android:layout_width="0dp"
                         android:layout_height="40dp"
-                        android:layout_marginRight="3dp"
-                        android:layout_weight="1.3"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1.5"
                         android:background="@drawable/switch_ripple_red2"
                         android:thumb="@drawable/switch_thumb"
                         android:track="@drawable/switch_track_selector" />
-
 
                     <!--맨 오른쪽 여백 0.4만큼-->
                     <View
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_weight="0.4" />
+                        android:layout_weight="0.5" />
+
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="210dp"
                     android:gravity="center">
@@ -303,7 +326,7 @@
                         android:layout_marginTop="13dp"
                         android:layout_marginRight="13dp"
                         android:background="@drawable/burritoin_sample"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -312,7 +335,7 @@
                         android:layout_marginTop="13dp"
                         android:layout_marginRight="13dp"
                         android:background="@drawable/menya_sample"
-                        android:scaleType="fitCenter"/>
+                        android:scaleType="fitCenter" />
 
                     <ImageView
                         android:layout_width="match_parent"
@@ -322,6 +345,15 @@
                         android:layout_marginRight="13dp"
                         android:layout_marginBottom="13dp"
                         android:background="@drawable/cement_sample" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="210dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_marginBottom="13dp"
+                        android:background="@drawable/burritoin_sample_2" />
 
                 </LinearLayout>
 
@@ -340,9 +372,9 @@
         android:layout_marginStart="20dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id_for_test"
-        ads:layout_constraintTop_toBottomOf="@id/cbnu_bottom_linear_layout"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintLeft_toLeftOf="parent"
-        ads:layout_constraintRight_toRightOf="parent" />
+        ads:layout_constraintRight_toRightOf="parent"
+        ads:layout_constraintTop_toBottomOf="@id/cbnu_bottom_linear_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
