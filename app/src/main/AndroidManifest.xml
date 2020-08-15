@@ -11,6 +11,8 @@
         android:theme="@style/AppTheme"
         >
         <activity android:name=".Common.LoginSignup.LoginSignupScreen"/>
+        <activity android:name=".Adapter.Frame.Frame_Front"/>
+
         <activity
             android:name=".Schools.ChungBuk.main_chungbuk"
             android:windowSoftInputMode="stateHidden"/>
@@ -21,6 +23,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="z0dfc0erqt"/>
 
         <meta-data
             android:name="preloaded_fonts"

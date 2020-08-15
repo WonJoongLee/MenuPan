@@ -1,15 +1,19 @@
 package com.example.menupan.Schools.ChungBuk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.menupan.Adapter.Frame.FrameAdapter;
+import com.example.menupan.Adapter.Frame.Frame_Front;
 import com.example.menupan.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -23,6 +27,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     private List<String> autoCompleteTextList;
     private View filterView;
+    ImageView burritoin;//임시로 잘 넘어가지는지 확인하기 위한 button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,17 @@ public class main_chungbuk extends AppCompatActivity {
         Button button_cbnu_filter = (Button) findViewById(R.id.cbnu_filter);
         Button button_cbnu_back = (Button) findViewById(R.id.cbnu_option_back);
         filterView = (LinearLayout) findViewById(R.id.cbnu_linearlayout_filter);
+
+        /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분*/
+        burritoin = findViewById(R.id.imageview_burritoin);
+        burritoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
+                startActivity(intent);
+            }
+        });
+        /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분 끝*/
 
         /*광고(AdMob) 시작되는 부분*/
         MobileAds.initialize(this, getString(R.string.admob_app_id));
