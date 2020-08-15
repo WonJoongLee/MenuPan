@@ -7,12 +7,15 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.menupan.Adapter.BannerAdapter.DataBean;
+import com.example.menupan.Adapter.BannerAdapter.ImageAdapter;
 import com.example.menupan.Adapter.MainScreenViewPager2.User;
 import com.example.menupan.Adapter.MainScreenViewPager2.VPAdapter;
 import com.example.menupan.Common.LoginSignup.LoginSignupScreen;
@@ -21,6 +24,12 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
+import com.youth.banner.Banner;
+import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.indicator.RectangleIndicator;
+import com.youth.banner.util.BannerUtils;
+import com.youth.banner.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -164,41 +173,60 @@ public class MainActivity extends AppCompatActivity {
 
 
         //4안
-        userList = new ArrayList<>();
-        userList.add(new User(R.drawable.notice_image));
-        userList.add(new User(R.drawable.test_screen_2));
+//        userList = new ArrayList<>();
+//        userList.add(new User(R.drawable.notice_image));
+//        userList.add(new User(R.drawable.test_screen_2));
+//
+//        vpadapter = new VPAdapter(this, userList);
+//        viewPager2 = findViewById(R.id.viewPager2);
+//        viewPager2.setAdapter(vpadapter);
+//
+//
+//        viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
+//        viewPager2.setAdapter(vpadapter);
+//        viewPager2.setOffscreenPageLimit(3);
+//
+//        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
+//        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
+//
+//
+//        viewPager2.setPageTransformer(new ViewPager2.PageTransformer() {
+//            @Override
+//            public void transformPage(@NonNull View page, float position) {
+//                float myOffset = position * -(2 * pageOffset + pageMargin);
+//                if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
+//                    if (ViewCompat.getLayoutDirection(viewPager2) == ViewCompat.LAYOUT_DIRECTION_RTL) {
+//                        page.setTranslationX(-myOffset);
+//                    } else {
+//                        page.setTranslationX(myOffset);
+//                    }
+//                } else {
+//                    page.setTranslationY(myOffset);
+//                }
+//            }
+//        });
+//        CircleIndicator3 indicator = (CircleIndicator3)findViewById(R.id.indicator);
+//       indicator.setViewPager(viewPager2);
+//       vpadapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
 
-        vpadapter = new VPAdapter(this, userList);
-        viewPager2 = findViewById(R.id.viewPager2);
-        viewPager2.setAdapter(vpadapter);
+        //5안
+        Banner banner;
+        banner = findViewById(R.id.banner);
+
+        ImageAdapter adapter = new ImageAdapter(DataBean.getTestData());
+
+        banner.setAdapter(adapter)
+                .addBannerLifecycleObserver(this)
+                .setIndicator(new RectangleIndicator(this))
+                .setIndicatorSelectedWidth((int) BannerUtils.dp2px(12))
+                .setIndicatorSpace((int)BannerUtils.dp2px(4))
+                .setIndicatorRadius(0)
+                .setOnBannerListener((data, position) -> {
+                    Snackbar.make(banner, ((DataBean) data).title, Snackbar.LENGTH_SHORT).show();
+                    LogUtils.d("position : " + position);
+                });
 
 
-        viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        viewPager2.setAdapter(vpadapter);
-        viewPager2.setOffscreenPageLimit(3);
-
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-
-
-        viewPager2.setPageTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float myOffset = position * -(2 * pageOffset + pageMargin);
-                if (viewPager2.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
-                    if (ViewCompat.getLayoutDirection(viewPager2) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                        page.setTranslationX(-myOffset);
-                    } else {
-                        page.setTranslationX(myOffset);
-                    }
-                } else {
-                    page.setTranslationY(myOffset);
-                }
-            }
-        });
-        CircleIndicator3 indicator = (CircleIndicator3)findViewById(R.id.indicator);
-       indicator.setViewPager(viewPager2);
-       vpadapter.registerAdapterDataObserver(indicator.getAdapterDataObserver());
     }
 
 }

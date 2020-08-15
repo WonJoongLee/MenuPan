@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.google.android.material:material:1.3.0-alpha02'
     implementation 'me.relex:circleindicator:2.1.4' // viewpager2 indicator
     implementation 'com.naver.maps:map-sdk:3.4.0'
+    implementation 'com.youth.banner:banner:2.0.10'// 메인 banner에 사용
 }
