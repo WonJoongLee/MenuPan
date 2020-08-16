@@ -92,7 +92,7 @@
             app:layout_constraintTop_toBottomOf="@id/top_linear_layout">
 
             <AutoCompleteTextView
-                android:id="@+id/autoCompleteTextView"
+                android:id="@+id/cbnu_autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:completionThreshold="1"
@@ -319,43 +319,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/imageview_burritoin"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cbnu_recyclerView"
                         android:layout_width="match_parent"
-                        android:layout_height="210dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginRight="13dp"
-                        android:background="@drawable/burritoin_sample"
-                        android:scaleType="fitCenter"
-                        android:clickable="true"/>
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="210dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginRight="13dp"
-                        android:background="@drawable/menya_sample"
-                        android:scaleType="fitCenter" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="210dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginRight="13dp"
-                        android:layout_marginBottom="13dp"
-                        android:background="@drawable/cement_sample" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="210dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="13dp"
-                        android:layout_marginRight="13dp"
-                        android:layout_marginBottom="13dp"
-                        android:background="@drawable/burritoin_sample_2" />
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false">
+                    </androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
 

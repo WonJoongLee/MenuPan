@@ -4,16 +4,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menupan.Adapter.Frame.FrameAdapter;
 import com.example.menupan.Adapter.Frame.Frame_Front;
+import com.example.menupan.Adapter.SchoolRecyclerView.SampleData;
+import com.example.menupan.Adapter.SchoolRecyclerView.SchoolRecyclerView;
 import com.example.menupan.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -27,7 +33,11 @@ public class main_chungbuk extends AppCompatActivity {
 
     private List<String> autoCompleteTextList;
     private View filterView;
+    private SchoolRecyclerView adapter = new SchoolRecyclerView();
+    private AutoCompleteTextView autoCompleteTextView;
     ImageView burritoin;//임시로 잘 넘어가지는지 확인하기 위한 button
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +49,17 @@ public class main_chungbuk extends AppCompatActivity {
         Button button_cbnu_filter = (Button) findViewById(R.id.cbnu_filter);
         Button button_cbnu_back = (Button) findViewById(R.id.cbnu_option_back);
         filterView = (LinearLayout) findViewById(R.id.cbnu_linearlayout_filter);
+        autoCompleteTextView = findViewById(R.id.cbnu_autoCompleteTextView);
 
         /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분*/
-        burritoin = findViewById(R.id.imageview_burritoin);
-        burritoin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
-                startActivity(intent);
-            }
-        });
+        //burritoin = findViewById(R.id.imageview_burritoin);
+        //burritoin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
+//                startActivity(intent);
+//            }
+//        });
         /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분 끝*/
 
         /*광고(AdMob) 시작되는 부분*/
@@ -76,9 +87,6 @@ public class main_chungbuk extends AppCompatActivity {
 
         settingList();
 
-        final AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
-        //autoCompleteTextView.setShowSoftInputOnFocus(false);//충북대학교 화면으로 들어왔을 때 자판이 바로 올라오지 않도록 방지해주는 코드 -> 이걸 하면 아예 키보드가 안나와버림, 키보드가 다른 곳에 있을 경우(ex. 계산기)에 사용
-
         //AutoCompleteTextView에 어댑터 연결
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, autoCompleteTextList));
 
@@ -95,6 +103,23 @@ public class main_chungbuk extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 hideFilter();
+            }
+        });
+
+        /*RecyclerView 잘 되는지 확인하는 부분*/
+        RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.cbnu_recyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        adapter.setItems(new SampleData().getItems());
+
+        /*autoCompleteTextView에서 검색버튼이 눌러져서 결과 값을 보여주는 부분*/
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getApplicationContext(), "worked", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -125,4 +150,7 @@ public class main_chungbuk extends AppCompatActivity {
     protected void hideFilter() {
         filterView.setVisibility(View.INVISIBLE);//Gone과 Invisible은 View가 보이지 않는다. 차이는 Invisible은 레이아웃을 위한 영역을 차지하고, Gone은 레이아웃을 위한 영역을 차지 안함
     }
+
+
+
 }

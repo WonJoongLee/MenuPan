@@ -147,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
 //        viewPager2.setAdapter(new ViewPagerAdapter(list));
         //viewPager 끝나는 부분
 
-        //TODO @@@@@@@@@@@@이곳이 최종
 //        /*viewpager2 시작하는 부분*/
 //        viewPager2 = findViewById(R.id.viewPager2);
 //
