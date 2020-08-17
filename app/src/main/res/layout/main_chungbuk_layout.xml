@@ -143,7 +143,7 @@
             <LinearLayout
                 android:id="@+id/cbnu_linearlayout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
+                android:layout_height="380dp"
                 android:layout_gravity="top|center_horizontal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
@@ -322,6 +322,70 @@
                         android:layout_height="match_parent"
                         android:scaleType="fitXY"
                         android:src="@drawable/school_loaction" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:weightSum="9">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/jalnan"
+                        android:text="밥집"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/switch_ripple_red2"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/jalnan"
+                        android:text="카페"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/switch_ripple_red2"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/jalnan"
+                        android:text="술집"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
+
+                    <Switch
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/switch_ripple_red2"
+                        android:thumb="@drawable/switch_thumb"
+                        android:track="@drawable/switch_track_selector" />
+
 
                 </LinearLayout>
 

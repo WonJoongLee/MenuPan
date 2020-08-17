@@ -88,7 +88,7 @@
             android:layout_margin="10dp"
             banner:indicator_radius="5dp"
             banner:indicator_normal_color="@color/lightgray"
-            banner:indicator_selected_color="#FFF568"
+            banner:indicator_selected_color="@color/red"
             banner:indicator_normal_width="6.5dp"
             banner:indicator_selected_width="9dp"
 
