@@ -41,4 +41,6 @@ dependencies {
     implementation 'me.relex:circleindicator:2.1.4' // viewpager2 indicator
     implementation 'com.naver.maps:map-sdk:3.4.0'
     implementation 'com.youth.banner:banner:2.0.10'// 메인 banner에 사용
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'// Retrofit2
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'// Json Parser
 }

@@ -1,10 +1,12 @@
 package com.example.menupan.Adapter.SchoolRecyclerView;
 
+import android.graphics.drawable.Drawable;
+
 public class Restaurant {
-    private int image;
+    private Drawable image;//원래는 image가 int였음
     private String name;
 
-    public int getImage() {
+    public Drawable getImage() {
         return image;
     }
 
@@ -12,7 +14,7 @@ public class Restaurant {
         return name;
     }
 
-    public Restaurant(int image, String name) {
+    public Restaurant(Drawable image, String name) {
         this.image = image;
         this.name = name;
     }

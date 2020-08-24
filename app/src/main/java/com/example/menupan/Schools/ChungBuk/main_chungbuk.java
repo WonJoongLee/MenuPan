@@ -30,6 +30,8 @@ import com.example.menupan.Adapter.Frame.Frame_Front;
 import com.example.menupan.Adapter.SchoolRecyclerView.Restaurant;
 //import com.example.menupan.Adapter.SchoolRecyclerView.SampleData;
 import com.example.menupan.Adapter.SchoolRecyclerView.SchoolRecyclerView;
+import com.example.menupan.Adapter.Server.ReceiveData;
+import com.example.menupan.Adapter.Server.ReceiveDataAPI;
 import com.example.menupan.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -39,7 +41,18 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class main_chungbuk extends AppCompatActivity {
+
+    /*아래 세 개는 서버와 관련 된 부분이다*/
+    private final String Tag = getClass().getSimpleName();
+    private final String BASE_URL = "http:/172.30.1.54:8000";//서버 주소
+    private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
     private View filterView;
@@ -81,7 +94,8 @@ public class main_chungbuk extends AppCompatActivity {
 //        items.add(res2);
 //        items.add(res3);
 //        items.add(res4);
-        addAllItems();
+        initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
+        addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
 
 
         /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분*/
@@ -127,6 +141,7 @@ public class main_chungbuk extends AppCompatActivity {
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             String selected;//사용자가 선택한 아이템을 저장할 String 변수, 하룻동안 걸려서 Toast로 띄우는 법 찾음
             String selected2;
+
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -194,10 +209,22 @@ public class main_chungbuk extends AppCompatActivity {
         adapter.setOnItemClickListener(new SchoolRecyclerView.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+                for(int i = 0 ; i < items.size(); i++){
+                    /*items.get(i).getName()은 아이템의 모든 이름들을 돌아가면서 확인하는 것이고,
+                    * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
+                    * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
+                    if(items.get(i).getName().equals(adapter.items.get(position).getName())){
+                        //TODO 여기서 intent 넘겨줄 때 DB에서 값들을 받아와서 intent에 같이 넘겨주는 식으로 하기
+                        Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
+                        startActivity(intent);
+                    }
+                }
+                /*
                 if(items.get(position).getName().equals("브리또인")){
                     Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
                     startActivity(intent);
                 }
+                */
             }
         });
     }
@@ -233,17 +260,63 @@ public class main_chungbuk extends AppCompatActivity {
     public ArrayList<Restaurant> addAllItems(){
         items.clear();
         adapter.notifyDataSetChanged();
-        Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
-        Restaurant res2 = new Restaurant(R.drawable.burritoin_sample_2, "브리또인2");
-        Restaurant res3 = new Restaurant(R.drawable.cement_sample, "시멘트");
-        Restaurant res4 = new Restaurant(R.drawable.menya_sample, "멘야마쯔리");
-        items.add(res1);
-        items.add(res2);
-        items.add(res3);
-        items.add(res4);
+
+        /*서버로부터 데이터 받아오는 부분*/
+        Log.d(Tag, "GET");
+        Call<List<ReceiveData>> getCall = receiveDataAPI.get_posts();
+        getCall.enqueue(new Callback<List<ReceiveData>>() {
+            @Override
+            public void onResponse(Call<List<ReceiveData>> call, Response<List<ReceiveData>> response) {
+                /*송수신이 잘 될 때 첫 번째 조건문으로 들어감*/
+                if(response.isSuccessful()){
+                    System.out.println("@@@서버와 송수신이 잘 됨");
+                    List<ReceiveData> list = response.body();
+                    for(int i = 0 ; i < list.size();i++){
+                        Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());
+                        System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
+                        items.add(res);
+                    }
+                /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
+                }else{
+                    System.out.println("@@@onResponse로는 잘 들어왔지만 서버 오류가 있음");
+                    Log.d(Tag, "Status Code : " + response.code());
+                }
+            }
+            /*애초에 서버와 송수신이 불가능할 경우 아래 onFailure로 들어간다. 서버에 문제가 있는 것, 아예 켜 놓지를 않았던가*/
+            @Override
+            public void onFailure(Call<List<ReceiveData>> call, Throwable t) {
+                System.out.println("@@@onFailure로 들어옴, 아예 서버와 연결도 안되는 부분");
+                Log.d(Tag, "Fail msg : " + t.getMessage());
+            }
+        });
+        /*서버로부터 데이터 받아오는 부분 끝*/
+
+
+        /*TODO 이 부분을 위에서 다 처리해야함, 처리가 모두 끝나면 주석 지우고 설명 다 했다고 다시 쓰기*/
+        //Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
+        //Restaurant res2 = new Restaurant(R.drawable.burritoin_sample_2, "브리또인2");
+        //Restaurant res3 = new Restaurant(R.drawable.cement_sample, "시멘트");
+        //Restaurant res4 = new Restaurant(R.drawable.menya_sample, "멘야마쯔리");
+        //items.add(res1);
+        //items.add(res2);
+        //items.add(res3);
+        //items.add(res4);
 
         return items;
     }
+
+    /*서버부분*/
+    private void initReceiveDataAPI(String baseUrl){
+        Log.d(Tag, "initReceiveDataAPI : " + baseUrl);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        receiveDataAPI = retrofit.create(ReceiveDataAPI.class);
+    }
+
+
 
 
 
