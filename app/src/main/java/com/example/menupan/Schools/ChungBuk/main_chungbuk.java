@@ -2,6 +2,11 @@ package com.example.menupan.Schools.ChungBuk;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -38,6 +43,10 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -272,9 +281,26 @@ public class main_chungbuk extends AppCompatActivity {
                     System.out.println("@@@서버와 송수신이 잘 됨");
                     List<ReceiveData> list = response.body();
                     for(int i = 0 ; i < list.size();i++){
-                        Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());
+//                        //Drawable mainpic = new BitmapDrawable(list.get(i).getMainpic());
+//                        Bitmap bitmap = BitmapFactory.decodeByteArray(list.get(1).getMainpic(), 0, list.get(i).getMainpic().length);
+//                        ImageView imageView = findViewById(R.id.tempImageView);
+//                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(),false));
+                        Drawable drawable = null;
+                        try{
+                            Bitmap bitmap;
+                            ImageView imageView = findViewById(R.id.tempimageview);
+                            DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
+                            bitmap = downloadImageTask.execute("https://drive.google.com/uc?export=download&id=19yCen5ZnT4z9xmJO3CljEoiKkGDuS5K6").get();
+                            drawable = new BitmapDrawable(bitmap);
+                        }catch(Exception e){
+                            e.printStackTrace();
+                        }
+
+                        Restaurant res = new Restaurant(drawable, list.get(i).getName());
+                        //Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());//TODO 여기 list.get(i).getMainpic()들어가는 부분 drawable로 형변환해서 넣어주기
                         System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
                         items.add(res);
+
                     }
                 /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
                 }else{
@@ -316,9 +342,102 @@ public class main_chungbuk extends AppCompatActivity {
         receiveDataAPI = retrofit.create(ReceiveDataAPI.class);
     }
 
+    /*BLOB형식(byte형식)을 bitmap형식으로 반환해서 이미지로 보여줄 수 있게 해주는 함수*/
+    public Bitmap getAppIcon(byte[] b){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+        return bitmap;
+    }
+
+    //아래 부분을 멀티 쓰레드로 넘겨야함, 백그라운드 작업으로
+    /*private Drawable drawableFromUrl(String url) throws IOException{
+        Bitmap x;
+        HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        x = BitmapFactory.decodeStream(input);//InputStream을 Bitmap으로 변환
+        return new BitmapDrawable(getResources(),x);//Bitmap을 Drawable로 변환하는 코드
+    }*/
+
+    /*private Drawable drawableFromUrl(String url) throws IOException{
+        Bitmap x;
+
+        HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
+
+        new AsyncTask<String, Integer, Drawable>(){
+
+            @Override
+            protected Drawable doInBackground(String... strings) {
+                Bitmap bmp = null;
+                try{
+                    HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    bmp = BitmapFactory.decodeStream(input);
+                }catch(IOException e){
+                    e.printStackTrace();;
+                }
+
+                return new BitmapDrawable(bmp);
+            }
 
 
+        }.execute();
 
+        x = BitmapFactory.decodeStream(input);//InputStream을 Bitmap으로 변환
+        return new BitmapDrawable(getResources(),x);//Bitmap을 Drawable로 변환하는 코드
+    }*/
+
+    /*원래 되던 것
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+*/
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
 
 
 

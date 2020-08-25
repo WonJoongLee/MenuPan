@@ -5,7 +5,8 @@ import android.graphics.drawable.Drawable;
 public class ReceiveData {
     private String name, location, upinfo, downinfo, resnumber;
     private Float xco, yco;
-    private Drawable mainpic, menupic, respic;
+    //private Drawable mainpic, menupic, respic;
+    private byte[] mainpic, menupic, respic;
 
     public String getName() {
         return name;
@@ -63,27 +64,27 @@ public class ReceiveData {
         this.yco = yco;
     }
 
-    public Drawable getMainpic() {
+    public byte[] getMainpic() {
         return mainpic;
     }
 
-    public void setMainpic(Drawable mainpic) {
+    public void setMainpic(byte[] mainpic) {
         this.mainpic = mainpic;
     }
 
-    public Drawable getMenupic() {
+    public byte[] getMenupic() {
         return menupic;
     }
 
-    public void setMenupic(Drawable menupic) {
+    public void setMenupic(byte[] menupic) {
         this.menupic = menupic;
     }
 
-    public Drawable getRespic() {
+    public byte[] getRespic() {
         return respic;
     }
 
-    public void setRespic(Drawable respic) {
+    public void setRespic(byte[] respic) {
         this.respic = respic;
     }
 }

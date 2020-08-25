@@ -402,6 +402,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <ImageView
+                        android:id="@+id/tempimageview"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"/>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/cbnu_recyclerView"
                         android:layout_width="match_parent"
