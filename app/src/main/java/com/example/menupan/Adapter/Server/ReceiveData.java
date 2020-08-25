@@ -3,10 +3,8 @@ package com.example.menupan.Adapter.Server;
 import android.graphics.drawable.Drawable;
 
 public class ReceiveData {
-    private String name, location, upinfo, downinfo, resnumber;
+    private String name, location, upinfo, downinfo, resnumber, mainpic, menupic, respic;
     private Float xco, yco;
-    //private Drawable mainpic, menupic, respic;
-    private byte[] mainpic, menupic, respic;
 
     public String getName() {
         return name;
@@ -64,27 +62,27 @@ public class ReceiveData {
         this.yco = yco;
     }
 
-    public byte[] getMainpic() {
+    public String getMainpic() {
         return mainpic;
     }
 
-    public void setMainpic(byte[] mainpic) {
+    public void setMainpic(String mainpic) {
         this.mainpic = mainpic;
     }
 
-    public byte[] getMenupic() {
+    public String getMenupic() {
         return menupic;
     }
 
-    public void setMenupic(byte[] menupic) {
+    public void setMenupic(String menupic) {
         this.menupic = menupic;
     }
 
-    public byte[] getRespic() {
+    public String getRespic() {
         return respic;
     }
 
-    public void setRespic(byte[] respic) {
+    public void setRespic(String respic) {
         this.respic = respic;
     }
 }

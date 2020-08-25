@@ -290,7 +290,8 @@ public class main_chungbuk extends AppCompatActivity {
                             Bitmap bitmap;
                             ImageView imageView = findViewById(R.id.tempimageview);
                             DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
-                            bitmap = downloadImageTask.execute("https://drive.google.com/uc?export=download&id=19yCen5ZnT4z9xmJO3CljEoiKkGDuS5K6").get();
+                            //bitmap = downloadImageTask.execute("https://drive.google.com/uc?export=download&id=19yCen5ZnT4z9xmJO3CljEoiKkGDuS5K6").get();
+                            bitmap = downloadImageTask.execute(list.get(i).getMainpic()).get();
                             drawable = new BitmapDrawable(bitmap);
                         }catch(Exception e){
                             e.printStackTrace();
@@ -298,7 +299,8 @@ public class main_chungbuk extends AppCompatActivity {
 
                         Restaurant res = new Restaurant(drawable, list.get(i).getName());
                         //Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());//TODO 여기 list.get(i).getMainpic()들어가는 부분 drawable로 형변환해서 넣어주기
-                        System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
+                        //System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
+                        System.out.println("@@@@" + list.get(i).getMainpic());
                         items.add(res);
 
                     }
