@@ -43,4 +43,5 @@ dependencies {
     implementation 'com.youth.banner:banner:2.0.10'// 메인 banner에 사용
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'// Retrofit2
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'// Json Parser
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'//로딩 UI
 }

@@ -60,7 +60,8 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http:/172.30.1.54:8000";//서버 주소
+    private final String BASE_URL = "http://28087b3355c3.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+                                                              //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
     private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
@@ -281,23 +282,21 @@ public class main_chungbuk extends AppCompatActivity {
                     System.out.println("@@@서버와 송수신이 잘 됨");
                     List<ReceiveData> list = response.body();
                     for(int i = 0 ; i < list.size();i++){
-//                        //Drawable mainpic = new BitmapDrawable(list.get(i).getMainpic());
-//                        Bitmap bitmap = BitmapFactory.decodeByteArray(list.get(1).getMainpic(), 0, list.get(i).getMainpic().length);
-//                        ImageView imageView = findViewById(R.id.tempImageView);
-//                        imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, imageView.getWidth(), imageView.getHeight(),false));
-                        Drawable drawable = null;
+
+                        /*구글 드라이브의 url을 Database에 저장하고, 그 url을 통해 사진을 불러오와서 drawable 변수에 저장한다*/
+                        Drawable drawable_mainpic = null;
                         try{
                             Bitmap bitmap;
                             ImageView imageView = findViewById(R.id.tempimageview);
                             DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
                             //bitmap = downloadImageTask.execute("https://drive.google.com/uc?export=download&id=19yCen5ZnT4z9xmJO3CljEoiKkGDuS5K6").get();
                             bitmap = downloadImageTask.execute(list.get(i).getMainpic()).get();
-                            drawable = new BitmapDrawable(bitmap);
+                            drawable_mainpic = new BitmapDrawable(bitmap);
                         }catch(Exception e){
                             e.printStackTrace();
                         }
 
-                        Restaurant res = new Restaurant(drawable, list.get(i).getName());
+                        Restaurant res = new Restaurant(drawable_mainpic, list.get(i).getName());
                         //Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());//TODO 여기 list.get(i).getMainpic()들어가는 부분 drawable로 형변환해서 넣어주기
                         //System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
                         System.out.println("@@@@" + list.get(i).getMainpic());
@@ -320,16 +319,6 @@ public class main_chungbuk extends AppCompatActivity {
         /*서버로부터 데이터 받아오는 부분 끝*/
 
 
-        /*TODO 이 부분을 위에서 다 처리해야함, 처리가 모두 끝나면 주석 지우고 설명 다 했다고 다시 쓰기*/
-        //Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
-        //Restaurant res2 = new Restaurant(R.drawable.burritoin_sample_2, "브리또인2");
-        //Restaurant res3 = new Restaurant(R.drawable.cement_sample, "시멘트");
-        //Restaurant res4 = new Restaurant(R.drawable.menya_sample, "멘야마쯔리");
-        //items.add(res1);
-        //items.add(res2);
-        //items.add(res3);
-        //items.add(res4);
-
         return items;
     }
 
@@ -350,72 +339,9 @@ public class main_chungbuk extends AppCompatActivity {
         return bitmap;
     }
 
-    //아래 부분을 멀티 쓰레드로 넘겨야함, 백그라운드 작업으로
-    /*private Drawable drawableFromUrl(String url) throws IOException{
-        Bitmap x;
-        HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
-        connection.connect();
-        InputStream input = connection.getInputStream();
 
-        x = BitmapFactory.decodeStream(input);//InputStream을 Bitmap으로 변환
-        return new BitmapDrawable(getResources(),x);//Bitmap을 Drawable로 변환하는 코드
-    }*/
-
-    /*private Drawable drawableFromUrl(String url) throws IOException{
-        Bitmap x;
-
-        HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
-
-        new AsyncTask<String, Integer, Drawable>(){
-
-            @Override
-            protected Drawable doInBackground(String... strings) {
-                Bitmap bmp = null;
-                try{
-                    HttpURLConnection connection = (HttpURLConnection)new URL(url).openConnection();
-                    connection.connect();
-                    InputStream input = connection.getInputStream();
-                    bmp = BitmapFactory.decodeStream(input);
-                }catch(IOException e){
-                    e.printStackTrace();;
-                }
-
-                return new BitmapDrawable(bmp);
-            }
-
-
-        }.execute();
-
-        x = BitmapFactory.decodeStream(input);//InputStream을 Bitmap으로 변환
-        return new BitmapDrawable(getResources(),x);//Bitmap을 Drawable로 변환하는 코드
-    }*/
-
-    /*원래 되던 것
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-*/
+    /*서버에서 데이터 가져오는 부분
+    * MutliThread, AsyncTask사용하는 부분*/
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
