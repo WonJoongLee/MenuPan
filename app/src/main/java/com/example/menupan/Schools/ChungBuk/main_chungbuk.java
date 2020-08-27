@@ -38,6 +38,7 @@ import com.example.menupan.Adapter.SchoolRecyclerView.SchoolRecyclerView;
 import com.example.menupan.Adapter.Server.ReceiveData;
 import com.example.menupan.Adapter.Server.ReceiveDataAPI;
 import com.example.menupan.R;
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -60,7 +61,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://28087b3355c3.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+    private final String BASE_URL = "http://44bcba55561c.ngrok.io";//서버 주소 : http://172.30.1.54:8000
                                                               //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
     private ReceiveDataAPI receiveDataAPI;
 
@@ -72,8 +73,12 @@ public class main_chungbuk extends AppCompatActivity {
     //private SampleData Data;//밥집 정보들이 담겨 있는 리스트
     private RecyclerView recyclerView;
     private ArrayList<Restaurant> items = new ArrayList<>();
-    MenuItem mSearch;
+    private SpinKitView spinKitView;
+    private MenuItem mSearch;
     ImageView burritoin;//임시로 잘 넘어가지는지 확인하기 위한 button
+    private double xco, yco;//뷰페이져 프래그먼트로 넘겨줄 x좌표, y좌표
+    private String upinfo, downinfo, resnumber, menupic, respic;
+    private List<ReceiveData> list;
 
 
 
@@ -95,6 +100,9 @@ public class main_chungbuk extends AppCompatActivity {
         //List<Restaurant> resList = Data.getItems();//밥집 정보들이 담겨 있는 list
         recyclerView = findViewById(R.id.cbnu_recyclerView);
 
+        initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
+        addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
+
         //ArrayList<Restaurant> items = new ArrayList<>();
 //        Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
 //        Restaurant res2 = new Restaurant(R.drawable.burritoin_sample_2, "브리또인2");
@@ -104,8 +112,9 @@ public class main_chungbuk extends AppCompatActivity {
 //        items.add(res2);
 //        items.add(res3);
 //        items.add(res4);
-        initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
-        addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
+
+
+
 
 
         /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분*/
@@ -150,7 +159,6 @@ public class main_chungbuk extends AppCompatActivity {
         /*autoCompleteTextView에서 검색버튼이 눌러져서 결과 값을 보여주는 부분*/
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             String selected;//사용자가 선택한 아이템을 저장할 String 변수, 하룻동안 걸려서 Toast로 띄우는 법 찾음
-            String selected2;
 
 
             @Override
@@ -158,7 +166,7 @@ public class main_chungbuk extends AppCompatActivity {
                 selected = adapterView.getItemAtPosition(i).toString();//어떤 것을 클릭했는지 탐지
                 //selected = ((TextView)view).getText().toString() + "is selected. Position is " + i; // 위엣것 처럼 해도 되는데 블로그보니까 이렇게 하라고 되어 있어서 이렇게함
 
-                Toast.makeText(getApplicationContext(), selected2, Toast.LENGTH_LONG).show();//Toast로 띄움
+                Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_LONG).show();//Toast로 띄움
                 adapter.notifyDataSetChanged();
                 for(int j=0;j<items.size();j++){
                     if(selected.equals(items.get(j).getName())){
@@ -223,9 +231,32 @@ public class main_chungbuk extends AppCompatActivity {
                     /*items.get(i).getName()은 아이템의 모든 이름들을 돌아가면서 확인하는 것이고,
                     * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
                     * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
-                    if(items.get(i).getName().equals(adapter.items.get(position).getName())){
+                    //if(items.get(i).getName().equals(adapter.items.get(position).getName())){
+                    if(list.get(i).getName().equals(adapter.items.get(position).getName())){//list.get(i).getName()은 리스트에 들어 있는 모든 아이템들이다.
+                        //adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다.
                         //TODO 여기서 intent 넘겨줄 때 DB에서 값들을 받아와서 intent에 같이 넘겨주는 식으로 하기
+                        //double xco = items.get(i).getXco();//x좌표
+                        //System.out.println("xco = " + xco);
+                        //double yco = items.get(i).getYco();//y좌표
+
                         Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
+                        xco=list.get(i).getXco();
+                        yco=list.get(i).getYco();
+                        upinfo = list.get(i).getUpinfo();
+                        downinfo = list.get(i).getDowninfo();
+                        resnumber = list.get(i).getResnumber();
+                        menupic = list.get(i).getMenupic();
+                        respic = list.get(i).getRespic();
+
+                        intent.putExtra("xco", xco);//intent와 함께 여러 값들을 넘겨준다. (이름, 실제값) 순서
+                        intent.putExtra("yco", yco);
+                        intent.putExtra("upinfo", upinfo);
+                        intent.putExtra("downinfo", downinfo);
+                        intent.putExtra("resnumber", resnumber);
+                        intent.putExtra("menupic", menupic);
+                        intent.putExtra("respic", respic);
+
+
                         startActivity(intent);
                     }
                 }
@@ -280,10 +311,13 @@ public class main_chungbuk extends AppCompatActivity {
                 /*송수신이 잘 될 때 첫 번째 조건문으로 들어감*/
                 if(response.isSuccessful()){
                     System.out.println("@@@서버와 송수신이 잘 됨");
-                    List<ReceiveData> list = response.body();
+                    list = response.body();//원래는 여기서 list를 선언했엇음
                     for(int i = 0 ; i < list.size();i++){
 
                         /*구글 드라이브의 url을 Database에 저장하고, 그 url을 통해 사진을 불러오와서 drawable 변수에 저장한다*/
+                        //xco = list.get(i).getXco();
+                        //yco = list.get(i).getYco();
+                        //System.out.println("xco = " + xco);
                         Drawable drawable_mainpic = null;
                         try{
                             Bitmap bitmap;
@@ -291,6 +325,7 @@ public class main_chungbuk extends AppCompatActivity {
                             DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
                             //bitmap = downloadImageTask.execute("https://drive.google.com/uc?export=download&id=19yCen5ZnT4z9xmJO3CljEoiKkGDuS5K6").get();
                             bitmap = downloadImageTask.execute(list.get(i).getMainpic()).get();
+
                             drawable_mainpic = new BitmapDrawable(bitmap);
                         }catch(Exception e){
                             e.printStackTrace();
@@ -345,8 +380,16 @@ public class main_chungbuk extends AppCompatActivity {
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
+
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            spinKitView = findViewById(R.id.spin_kit);
+            spinKitView.getIndeterminateDrawable();
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -363,6 +406,7 @@ public class main_chungbuk extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
+            spinKitView.setVisibility(View.GONE);
             bmImage.setImageBitmap(result);
         }
     }

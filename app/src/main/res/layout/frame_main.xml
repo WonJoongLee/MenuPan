@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/tab_layout">
 
 
-        <androidx.viewpager.widget.ViewPager
+        <com.example.menupan.Adapter.Frame.ViewPagerFixed
             android:id="@+id/framelayout_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

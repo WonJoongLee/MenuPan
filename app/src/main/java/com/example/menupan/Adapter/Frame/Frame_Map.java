@@ -23,6 +23,7 @@ public class Frame_Map extends Fragment implements OnMapReadyCallback {
 
     private View view;
     private MapView mapView;
+    private double xco, yco;
 
     public static Frame_Map newInstance(){
         Frame_Map frame_map = new Frame_Map();
@@ -54,16 +55,21 @@ public class Frame_Map extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-        goToLocation(naverMap, 36.632599, 127.458799);//나중에 이 부분은 DB에 들어있는 값으로 넣어줘야 함
+        if(getActivity()!=null&&getActivity() instanceof Frame_Front){
+            xco = ((Frame_Front) getActivity()).getXco();
+            yco = ((Frame_Front) getActivity()).getYco();
+        }
+        System.out.println("@@@@@ " + xco);
+        goToLocation(naverMap, xco, yco);//나중에 이 부분은 DB에 들어있는 값으로 넣어줘야 함
         Marker marker = new Marker();
-        marker.setPosition(new LatLng(36.632599,127.458799));
+        marker.setPosition(new LatLng(xco,yco));
         marker.setMap(naverMap);
     }
 
     private void goToLocation(NaverMap naverMap, double lat, double lng){
         CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(lat, lng)).animate(CameraAnimation.Linear);
         naverMap.moveCamera(cameraUpdate);
-        CameraPosition cameraPosition = new CameraPosition(new LatLng(36.632599, 127.458799), 17);
+        CameraPosition cameraPosition = new CameraPosition(new LatLng(xco, yco), 17);
         naverMap.setCameraPosition(cameraPosition);
     }
 }

@@ -36,7 +36,9 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
 
         Glide.with(holder.itemView.getContext())
                 .load(item.getImage())
-                .into(holder.ivRes);
+                .override(400,400)
+                .into(holder.ivRes)
+                ;
 
         //holder.ivRes.setImageResource(items.get(position).getImage());
     }
