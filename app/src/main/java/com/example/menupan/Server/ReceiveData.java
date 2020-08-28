@@ -1,6 +1,4 @@
-package com.example.menupan.Adapter.Server;
-
-import android.graphics.drawable.Drawable;
+package com.example.menupan.Server;
 
 public class ReceiveData {
     private String name, location, upinfo, downinfo, resnumber, mainpic, menupic, respic;

@@ -1,6 +1,5 @@
 package com.example.menupan.Schools.ChungBuk;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,7 +10,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,24 +28,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.menupan.Adapter.Frame.FrameAdapter;
 import com.example.menupan.Adapter.Frame.Frame_Front;
 import com.example.menupan.Adapter.SchoolRecyclerView.Restaurant;
 //import com.example.menupan.Adapter.SchoolRecyclerView.SampleData;
 import com.example.menupan.Adapter.SchoolRecyclerView.SchoolRecyclerView;
-import com.example.menupan.Adapter.Server.ReceiveData;
-import com.example.menupan.Adapter.Server.ReceiveDataAPI;
+import com.example.menupan.Server.ReceiveData;
+import com.example.menupan.Server.ReceiveDataAPI;
 import com.example.menupan.R;
-import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +54,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://44bcba55561c.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+    private final String BASE_URL = "http://15f1a02bd4ef.ngrok.io";//서버 주소 : http://172.30.1.54:8000
                                                               //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
     private ReceiveDataAPI receiveDataAPI;
 
@@ -73,7 +66,8 @@ public class main_chungbuk extends AppCompatActivity {
     //private SampleData Data;//밥집 정보들이 담겨 있는 리스트
     private RecyclerView recyclerView;
     private ArrayList<Restaurant> items = new ArrayList<>();
-    private SpinKitView spinKitView;
+    //private SpinKitView spinKitView;
+    private TextView waitsign;
     private MenuItem mSearch;
     ImageView burritoin;//임시로 잘 넘어가지는지 확인하기 위한 button
     private double xco, yco;//뷰페이져 프래그먼트로 넘겨줄 x좌표, y좌표
@@ -99,9 +93,12 @@ public class main_chungbuk extends AppCompatActivity {
         //Data = new SampleData();
         //List<Restaurant> resList = Data.getItems();//밥집 정보들이 담겨 있는 list
         recyclerView = findViewById(R.id.cbnu_recyclerView);
+        waitsign = findViewById(R.id.waitamomnet);
 
         initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
         addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
+        //spinKitView = findViewById(R.id.spin_kit);
+        //spinKitView.getIndeterminateDrawable();
 
         //ArrayList<Restaurant> items = new ArrayList<>();
 //        Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
@@ -219,6 +216,8 @@ public class main_chungbuk extends AppCompatActivity {
         /*RecyclerView 잘 되는지 확인하는 부분*/
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        //recyclerView.scrolllis
 
         adapter.setItems(items);
         /*RecyclerView 잘 되는지 확인하는 부분 끝*/
@@ -388,8 +387,8 @@ public class main_chungbuk extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            spinKitView = findViewById(R.id.spin_kit);
-            spinKitView.getIndeterminateDrawable();
+            //spinKitView = findViewById(R.id.spin_kit);
+            //spinKitView.getIndeterminateDrawable();
         }
 
         protected Bitmap doInBackground(String... urls) {
@@ -406,7 +405,8 @@ public class main_chungbuk extends AppCompatActivity {
         }
 
         protected void onPostExecute(Bitmap result) {
-            spinKitView.setVisibility(View.GONE);
+            //spinKitView.setVisibility(View.GONE);
+            waitsign.setVisibility(View.GONE);
             bmImage.setImageBitmap(result);
         }
     }

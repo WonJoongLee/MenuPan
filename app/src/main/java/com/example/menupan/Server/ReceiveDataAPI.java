@@ -1,4 +1,4 @@
-package com.example.menupan.Adapter.Server;
+package com.example.menupan.Server;
 
 import java.util.List;
 

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.menupan.R;
+import com.github.ybq.android.spinkit.SpinKitView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,11 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
     public ArrayList<Restaurant> items = new ArrayList<>();
 
 
+
     @NonNull
     @Override
     public SchoolRecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.school_recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
 
@@ -33,6 +35,7 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
     @Override
     public void onBindViewHolder(@NonNull SchoolRecyclerView.ViewHolder holder, int position) {
         Restaurant item = items.get(position);
+
 
         Glide.with(holder.itemView.getContext())
                 .load(item.getImage())
