@@ -16,7 +16,7 @@ import com.github.ybq.android.spinkit.SpinKitView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.ViewHolder> {
+public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ViewHolder> {
 
     public ArrayList<Restaurant> items = new ArrayList<>();
 
@@ -24,7 +24,7 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
 
     @NonNull
     @Override
-    public SchoolRecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ResAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.school_recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
@@ -33,7 +33,7 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SchoolRecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ResAdapter.ViewHolder holder, int position) {
         Restaurant item = items.get(position);
 
 

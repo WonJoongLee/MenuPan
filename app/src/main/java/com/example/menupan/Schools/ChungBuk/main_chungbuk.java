@@ -30,9 +30,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menupan.Adapter.Frame.Frame_Front;
+import com.example.menupan.Adapter.SchoolRecyclerView.ResAdapter;
 import com.example.menupan.Adapter.SchoolRecyclerView.Restaurant;
-//import com.example.menupan.Adapter.SchoolRecyclerView.SampleData;
-import com.example.menupan.Adapter.SchoolRecyclerView.SchoolRecyclerView;
 import com.example.menupan.Server.ReceiveData;
 import com.example.menupan.Server.ReceiveDataAPI;
 import com.example.menupan.R;
@@ -56,12 +55,12 @@ public class main_chungbuk extends AppCompatActivity {
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
     private final String BASE_URL = "http://15f1a02bd4ef.ngrok.io";//서버 주소 : http://172.30.1.54:8000
-                                                              //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
+    //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
     private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
     private View filterView;
-    private SchoolRecyclerView adapter = new SchoolRecyclerView();
+    private ResAdapter adapter = new ResAdapter();
     private AutoCompleteTextView autoCompleteTextView;
     //private SearchView searchView;
     //private SampleData Data;//밥집 정보들이 담겨 있는 리스트
@@ -176,7 +175,7 @@ public class main_chungbuk extends AppCompatActivity {
         });
 
         /*AutoCompleteTextView에서 사용자가 값을 입력했을 때에 변화를 줄 수 있는 곳,
-        * 예를 들어서 아예 다 지웠으면, 즉 text.length()가 0이라면 리스트를 다시 불러와서 보여줌*/
+         * 예를 들어서 아예 다 지웠으면, 즉 text.length()가 0이라면 리스트를 다시 불러와서 보여줌*/
         autoCompleteTextView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -224,13 +223,13 @@ public class main_chungbuk extends AppCompatActivity {
         /*RecyclerView 잘 되는지 확인하는 부분 끝*/
 
         /*RecyclerView 클릭하면 화면 이동하는 코드*/
-        adapter.setOnItemClickListener(new SchoolRecyclerView.OnItemClickListener() {
+        adapter.setOnItemClickListener(new ResAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 for(int i = 0 ; i < items.size(); i++){
                     /*items.get(i).getName()은 아이템의 모든 이름들을 돌아가면서 확인하는 것이고,
-                    * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
-                    * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
+                     * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
+                     * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
                     //if(items.get(i).getName().equals(adapter.items.get(position).getName())){
                     if(list.get(i).getName().equals(adapter.items.get(position).getName())){//list.get(i).getName()은 리스트에 들어 있는 모든 아이템들이다.
                         //adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다.
@@ -357,7 +356,7 @@ public class main_chungbuk extends AppCompatActivity {
                         items.add(res);
 
                     }
-                /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
+                    /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
                 }else{
                     System.out.println("@@@onResponse로는 잘 들어왔지만 서버 오류가 있음");
                     Log.d(Tag, "Status Code : " + response.code());
@@ -395,7 +394,7 @@ public class main_chungbuk extends AppCompatActivity {
 
 
     /*서버에서 데이터 가져오는 부분
-    * MutliThread, AsyncTask사용하는 부분*/
+     * MutliThread, AsyncTask사용하는 부분*/
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
