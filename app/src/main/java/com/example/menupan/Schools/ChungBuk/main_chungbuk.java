@@ -24,6 +24,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -265,6 +266,25 @@ public class main_chungbuk extends AppCompatActivity {
                     startActivity(intent);
                 }
                 */
+            }
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int itemTotalCount = recyclerView.getAdapter().getItemCount();
+
+                if(lastVisibleItemPosition + 1==itemTotalCount){//혹시 안되면 +1빼기 , +1을 해줘야 하는 이유는 position은 0부터 카운트해서 총 갯수보다 하나 적기 때문이다.
+                    //TODO
+                }
             }
         });
     }

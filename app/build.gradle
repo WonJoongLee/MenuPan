@@ -44,4 +44,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'// Retrofit2
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'// Json Parser
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'//로딩 UI
+    implementation 'com.jakewharton:butterknife:10.2.1'//butterknife
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'//butterknife
 }

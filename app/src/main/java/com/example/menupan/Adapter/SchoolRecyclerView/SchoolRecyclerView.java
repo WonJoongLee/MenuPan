@@ -25,7 +25,7 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
     @NonNull
     @Override
     public SchoolRecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        
+
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.school_recyclerview_item, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
 
@@ -41,7 +41,7 @@ public class SchoolRecyclerView extends RecyclerView.Adapter<SchoolRecyclerView.
                 .load(item.getImage())
                 .override(400,400)
                 .into(holder.ivRes)
-                ;
+        ;
 
         //holder.ivRes.setImageResource(items.get(position).getImage());
     }
