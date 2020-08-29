@@ -29,13 +29,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.github.chrisbanes:PhotoView:2.1.3'//사진 확대 할 때 필요
     implementation 'com.google.android.gms:play-services-ads:19.3.0'
-    implementation 'me.relex:circleindicator:1.2.2'
+    implementation 'me.relex:circleindicator:2.1.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'com.google.android.material:material:1.3.0-alpha02'
     implementation 'me.relex:circleindicator:2.1.4' // viewpager2 indicator
@@ -43,7 +43,5 @@ dependencies {
     implementation 'com.youth.banner:banner:2.0.10'// 메인 banner에 사용
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'// Retrofit2
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'// Json Parser
-    implementation 'com.github.ybq:Android-SpinKit:1.4.0'//로딩 UI
-    implementation 'com.jakewharton:butterknife:10.2.1'//butterknife
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'//butterknife
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'//로딩 스핀킷UI
 }

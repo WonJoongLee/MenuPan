@@ -11,14 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        >
-        <activity android:name=".Common.LoginSignup.LoginSignupScreen"/>
-        <activity android:name=".Adapter.Frame.Frame_Front"/>
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Common.LoginSignup.LoginSignupScreen" />
+        <activity android:name=".Adapter.Frame.Frame_Front" />
+        <!--
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
 
         <activity
             android:name=".Schools.ChungBuk.main_chungbuk"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +39,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="z0dfc0erqt"/>
+            android:value="z0dfc0erqt" />
 
         <meta-data
             android:name="preloaded_fonts"
@@ -37,7 +47,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/admob_app_id"/>
+            android:value="@string/admob_app_id" />
     </application>
 
 </manifest>

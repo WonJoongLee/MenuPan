@@ -2,7 +2,9 @@ package com.example.menupan.Adapter.SchoolRecyclerView;
 
 import android.graphics.drawable.Drawable;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant implements Serializable {
     private Drawable image;//원래는 image가 int였음
     private String name;
     private double xco, yco;

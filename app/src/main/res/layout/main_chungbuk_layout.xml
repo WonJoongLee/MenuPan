@@ -149,7 +149,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <TextView
+                android:layout_marginTop="22dp"
                 android:id="@+id/waitamomnet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,6 +160,19 @@
                 android:textColor="@color/black"
                 android:layout_gravity="center"
                 android:gravity="center"/>
+
+
+            <ProgressBar
+                android:layout_marginBottom="22dp"
+                android:id="@+id/cbnu_progressBar"
+                android:layout_width="match_parent"
+                android:theme="@style/ProgressBarStyle"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                />
+
 
             <LinearLayout
                 android:id="@+id/cbnu_linearlayout_filter"

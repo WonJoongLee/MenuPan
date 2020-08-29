@@ -1,6 +1,8 @@
 package com.example.menupan.Server;
 
-public class ReceiveData {
+import java.io.Serializable;
+
+public class ReceiveData implements Serializable {
     private String name, location, upinfo, downinfo, resnumber, mainpic, menupic, respic;
     private Float xco, yco;
 

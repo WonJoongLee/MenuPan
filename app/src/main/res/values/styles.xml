@@ -13,10 +13,12 @@
     <style name="SelectableItemTheme">
         <item name="colorControlHighlight">@color/CBNURed</item>
     </style>
+
     <style name="SelectableItemBackground">
         <item name="android:theme">@style/SelectableItemTheme</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
+
     <style name="AutoComplete">
         <item name="colorControlNormal">@color/darkRed</item>
         <item name="colorControlActivated">@color/darkRed</item>
@@ -26,5 +28,9 @@
         <item name="colorControlNormal">@color/red</item>
         <item name="colorControlActivated">@color/black</item>
         <item name="colorControlHighlight">@color/red2</item>
+    </style>
+
+    <style name="ProgressBarStyle">
+        <item name="colorAccent">@color/red3</item>
     </style>
 </resources>

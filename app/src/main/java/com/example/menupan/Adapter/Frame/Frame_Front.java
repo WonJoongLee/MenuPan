@@ -54,6 +54,7 @@ public class Frame_Front extends AppCompatActivity {
         menupic = receive_intent.getExtras().getString("menupic");
         respic = receive_intent.getExtras().getString("respic");
 
+
         //ViewPager2 viewPager2 = findViewById(R.id.framelayout_viewpager);
         ViewPager viewPager  = findViewById(R.id.framelayout_viewpager);
         fragmentPagerAdapter = new FrameAdapter(getSupportFragmentManager());

@@ -37,11 +37,11 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ViewHolder> {
         Restaurant item = items.get(position);
 
 
-        Glide.with(holder.itemView.getContext())
+        Glide
+                .with(holder.itemView.getContext())
                 .load(item.getImage())
                 .override(400,400)
-                .into(holder.ivRes)
-        ;
+                .into(holder.ivRes);
 
         //holder.ivRes.setImageResource(items.get(position).getImage());
     }
@@ -96,6 +96,7 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ViewHolder> {
         for (int i = items.size()-1; i >= 0; i--) {
             if(chk.get(i)==1){
                 items.remove(i);
+
             }
         }
     }

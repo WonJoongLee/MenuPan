@@ -3,4 +3,5 @@
     <string name="admob_app_id">ca-app-pub-7867003743682327~9282116231</string>
     <string name="banner_ad_unit_id">ca-app-pub-7867003743682327/1546030786</string>
     <string name="banner_ad_unit_id_for_test">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="loading_text">"잠시만 기다려주세요.(" + %d +"/"+%d+")"+"\\n통신 환경에 따라 속도 차이가 있을 수 있습니다."</string>
 </resources>

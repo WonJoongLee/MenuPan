@@ -20,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +55,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://15f1a02bd4ef.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+    private final String BASE_URL = "http://45a4f0cc7223.ngrok.io";//서버 주소 : http://172.30.1.54:8000
     //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
     private ReceiveDataAPI receiveDataAPI;
 
@@ -73,6 +74,8 @@ public class main_chungbuk extends AppCompatActivity {
     private double xco, yco;//뷰페이져 프래그먼트로 넘겨줄 x좌표, y좌표
     private String upinfo, downinfo, resnumber, menupic, respic;
     private List<ReceiveData> list;
+    private ProgressBar progressBar;
+    private int downloaddata_quantity;
 
 
 
@@ -93,10 +96,14 @@ public class main_chungbuk extends AppCompatActivity {
         //Data = new SampleData();
         //List<Restaurant> resList = Data.getItems();//밥집 정보들이 담겨 있는 list
         recyclerView = findViewById(R.id.cbnu_recyclerView);
-        waitsign = findViewById(R.id.waitamomnet);
+        waitsign= findViewById(R.id.waitamomnet);
+        progressBar = findViewById(R.id.cbnu_progressBar);
+
 
         initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
         addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
+
+
         //spinKitView = findViewById(R.id.spin_kit);
         //spinKitView.getIndeterminateDrawable();
 
@@ -148,7 +155,7 @@ public class main_chungbuk extends AppCompatActivity {
         });
         /*광고(AdMob) 부분 끝*/
 
-        settingList();
+        //settingList();
 
         //AutoCompleteTextView에 어댑터 연결
         autoCompleteTextView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, autoCompleteTextList));
@@ -226,11 +233,12 @@ public class main_chungbuk extends AppCompatActivity {
         adapter.setOnItemClickListener(new ResAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                for(int i = 0 ; i < items.size(); i++){
+                for(int i = 0 ; i < list.size(); i++){
                     /*items.get(i).getName()은 아이템의 모든 이름들을 돌아가면서 확인하는 것이고,
                      * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
                      * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
                     //if(items.get(i).getName().equals(adapter.items.get(position).getName())){
+                    System.out.println("@@@" + list.get(i).getName() + " // " + adapter.items.get(position).getName() + " // " + i);
                     if(list.get(i).getName().equals(adapter.items.get(position).getName())){//list.get(i).getName()은 리스트에 들어 있는 모든 아이템들이다.
                         //adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다.
                         //TODO 여기서 intent 넘겨줄 때 DB에서 값들을 받아와서 intent에 같이 넘겨주는 식으로 하기
@@ -268,6 +276,7 @@ public class main_chungbuk extends AppCompatActivity {
             }
         });
 
+
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -288,22 +297,7 @@ public class main_chungbuk extends AppCompatActivity {
         });
     }
 
-    /*autoCompleteTextlist의 리스트에 데이터 추가하는 부분
-     * 순서는 기존 메뉴판 res.layout에 있는 순서대로 넣다가 중간에 멈춤*/
-    private void settingList() {
-        autoCompleteTextList.add("브리또인");
-        autoCompleteTextList.add("은화수식당");
-        autoCompleteTextList.add("블루리프");
-        autoCompleteTextList.add("보통의 국수집");
-        autoCompleteTextList.add("병천 토종순대");
-        autoCompleteTextList.add("카멜");
-        autoCompleteTextList.add("떡뽀킹");
-        autoCompleteTextList.add("뚱글이 순대국밥");
-        autoCompleteTextList.add("돈앤밥");
-        autoCompleteTextList.add("이디야");
-        autoCompleteTextList.add("시멘트");
-        autoCompleteTextList.add("멘야마쯔리");
-    }
+
 
     /*필터 버튼 클릭하면 필터를 화면 위로 보여줌*/
     protected void showFilter() {
@@ -330,12 +324,9 @@ public class main_chungbuk extends AppCompatActivity {
                 if(response.isSuccessful()){
                     System.out.println("@@@서버와 송수신이 잘 됨");
                     list = response.body();//원래는 여기서 list를 선언했엇음
+                    //for(int i = 0 ; i < list.size();i++){
                     for(int i = 0 ; i < list.size();i++){
-
-                        /*구글 드라이브의 url을 Database에 저장하고, 그 url을 통해 사진을 불러오와서 drawable 변수에 저장한다*/
-                        //xco = list.get(i).getXco();
-                        //yco = list.get(i).getYco();
-                        //System.out.println("xco = " + xco);
+                        //progressBar.setProgress((list.size()/(i+1))*100);
                         Drawable drawable_mainpic = null;
                         try{
                             Bitmap bitmap;
@@ -348,13 +339,16 @@ public class main_chungbuk extends AppCompatActivity {
                         }catch(Exception e){
                             e.printStackTrace();
                         }
+                        //System.out.println(getString(R.string.loading_text, i, list.size()));
+                        //System.out.println("잠시만 기다려주세요.(" + i +"/"+list.size()+")"+"\\n통신 환경에 따라 속도 차이가 있을 수 있습니다.");
 
                         Restaurant res = new Restaurant(drawable_mainpic, list.get(i).getName());
                         //Restaurant res = new Restaurant(list.get(i).getMainpic(), list.get(i).getName());//TODO 여기 list.get(i).getMainpic()들어가는 부분 drawable로 형변환해서 넣어주기
                         //System.out.println("@@@@" + list.get(i).getName() + "@@@@" + list.get(i).getMainpic());
                         System.out.println("@@@@" + list.get(i).getMainpic());
+                        autoCompleteTextList.add(list.get(i).getName());//자동완성 목록에 이름 추가하는 부분
+                        //waitsign.setText(getString(R.string.loading_text, i, list.size()));
                         items.add(res);
-
                     }
                     /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
                 }else{
@@ -406,6 +400,7 @@ public class main_chungbuk extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
             //spinKitView = findViewById(R.id.spin_kit);
             //spinKitView.getIndeterminateDrawable();
         }
@@ -427,91 +422,9 @@ public class main_chungbuk extends AppCompatActivity {
             //spinKitView.setVisibility(View.GONE);
             waitsign.setVisibility(View.GONE);
             bmImage.setImageBitmap(result);
+            progressBar.setVisibility(View.GONE);
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*여기서부터는 searchView작업하는 부분 => 이제는 실제로 안쓰게 됐음
-      메뉴 생성하는 onCreateOptionsMenu*/
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        super.onCreateOptionsMenu(menu);
-
-        //search_mnu.xml등록
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.search_menu, menu);
-        mSearch=menu.findItem(R.id.search);
-
-        //메뉴 아이콘 클릭했을 시 확장, 취소했을 시 축소
-        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener(){
-
-            //확장됨
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return true;
-            }
-
-            //축소됨
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                return true;
-            }
-        });
-
-        //menuItem을 이용해서 SearchView 변수 생성
-        SearchView sv=(SearchView)mSearch.getActionView();
-        //확인 버튼 활성화
-        sv.setSubmitButtonEnabled(true);
-
-        //sv.setLayoutParams(new ActionBar.LayoutParams(Gravity.RIGHT));
-
-        //searchView의 검색 이벤트
-        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
-
-            //검색버튼을 눌렀을 경우
-            @Override
-            public boolean onQueryTextSubmit(String s) {//여기서 s는 사용자가 입력하는 String이다
-                sv.bringToFront();
-                return true;
-            }
-
-            //텍스트가 바뀔때마다 호출
-            @Override
-            public boolean onQueryTextChange(String s) {//여기서 s는 사용자가 입력하는 String이다
-                return true;
-            }
-        });
-
-        sv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sv.setIconified(false);
-            }
-        });
-
-
-
-        return true;
-    }
-
-    /*검색 확장, 축소를 버튼으로 생성
-      근데 필요 없을 것 같아서 안만듬
-    public void mOnClick(View v){
-        switch(v.getId()){
-            case R.id.
-        }
-    }*/
 
 }
