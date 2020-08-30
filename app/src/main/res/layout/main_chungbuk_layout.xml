@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="horizontal"
-            android:weightSum="10">
+            android:weightSum="10"
+            android:baselineAligned="false">
 
             <!--메뉴판 로고와 "MenuPan"이 들어가는 부분-->
             <LinearLayout
@@ -63,7 +64,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_marginTop="7.5dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginEnd="20dp"
                         android:background="@drawable/filter_threebar"
                         android:foreground="@drawable/three_filter_bar_custom"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,36 +91,35 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top_linear_layout">
-<!--
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/cbnu_SearchView"
-                app:iconifiedByDefault="false"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:completionThreshold="1"
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textColorHint="#555555"
-                android:theme="@style/AutoComplete"
-                android:singleLine="true"
-                android:layoutDirection="rtl"
-                app:queryHint="검색어를 입력하세요"
-                />
--->
+            <!--
+                        <androidx.appcompat.widget.SearchView
+                            android:id="@+id/cbnu_SearchView"
+                            app:iconifiedByDefault="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:completionThreshold="1"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textColorHint="#555555"
+                            android:theme="@style/AutoComplete"
+                            android:singleLine="true"
+                            android:layoutDirection="rtl"
+                            app:queryHint="검색어를 입력하세요"
+                            />
+            -->
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/cbnu_autoCompleteTextView"
-                app:iconifiedByDefault="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:completionThreshold="1"
                 android:gravity="center_vertical"
+                android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="#555555"
                 android:theme="@style/AutoComplete"
-                android:singleLine="true"
-                app:queryHint="검색어를 입력하세요"
-                />
+                app:iconifiedByDefault="false"
+                app:queryHint="검색어를 입력하세요" />
 
         </LinearLayout>
 
@@ -135,58 +135,62 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cbnu_top_linear_layout">
-<!--
-        <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/spin_kit"
-            style="@style/SpinKitView.FadingCircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:SpinKit_Color="@color/red3" />
-            -->
+        <!--
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/spin_kit"
+                    style="@style/SpinKitView.FadingCircle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:SpinKit_Color="@color/red3" />
+                    -->
 
         <FrameLayout
+            android:id="@+id/cbnu_framelayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
 
             <TextView
-                android:layout_marginTop="22dp"
                 android:id="@+id/waitamomnet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="잠시만 기다려주세요.\n통신 환경에 따라 속도 차이가 있을 수 있습니다."
-                android:textSize="15sp"
-                android:textColor="@color/black"
                 android:layout_gravity="center"
-                android:gravity="center"/>
+                android:layout_marginTop="22dp"
+                android:gravity="center"
+                android:text="잠시만 기다려주세요.\n통신 환경에 따라 속도 차이가 있을 수 있습니다."
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
 
             <ProgressBar
-                android:layout_marginBottom="22dp"
                 android:id="@+id/cbnu_progressBar"
                 android:layout_width="match_parent"
-                android:theme="@style/ProgressBarStyle"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                />
+                android:layout_marginBottom="22dp"
+                android:theme="@style/ProgressBarStyle" />
 
 
             <LinearLayout
                 android:id="@+id/cbnu_linearlayout_filter"
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
+                android:layout_height="350dp"
                 android:layout_gravity="top|center_horizontal"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/applebackground_radius"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:visibility="invisible">
 
-                <!-- 이 부분에 뒤로가기 버튼, 확인 버튼, 정문~후문 라디오버튼?이나 깔쌈한 버튼, 아래에 사진 추가할 것 -->
+                <!-- 이 부분에 뒤로가기 버튼, 확인 버튼, 정문~후문 버튼이나 깔쌈한 버튼, 아래에 사진 추가할 것 -->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -252,6 +256,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_jeongmoon"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -270,6 +275,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_joongmoon"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -310,6 +316,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_seomoon"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -328,6 +335,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_hoomoon"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -345,9 +353,9 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="210dp"
+                    android:layout_marginTop="25dp"
                     android:gravity="center">
 
                     <!-- 여기서부터 정문~후문 위치 사진 넣기-->
@@ -358,7 +366,7 @@
                         android:src="@drawable/school_loaction" />
 
                 </LinearLayout>
-
+<!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -376,6 +384,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_meal"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -394,6 +403,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_cafe"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -412,6 +422,7 @@
                         android:textSize="15sp" />
 
                     <Switch
+                        android:id="@+id/switch_bar"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginRight="10dp"
@@ -422,7 +433,7 @@
 
 
                 </LinearLayout>
-
+-->
             </LinearLayout>
 
             <ScrollView
@@ -439,14 +450,13 @@
                     <ImageView
                         android:id="@+id/tempimageview"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"/>
+                        android:layout_height="0dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/cbnu_recyclerView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:clipToPadding="false">
-                    </androidx.recyclerview.widget.RecyclerView>
+                        android:clipToPadding="false"></androidx.recyclerview.widget.RecyclerView>
 
                 </LinearLayout>
 

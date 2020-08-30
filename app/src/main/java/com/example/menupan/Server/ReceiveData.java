@@ -3,7 +3,24 @@ package com.example.menupan.Server;
 import java.io.Serializable;
 
 public class ReceiveData implements Serializable {
-    private String name, location, upinfo, downinfo, resnumber, mainpic, menupic, respic;
+    private String name;
+    private String location;
+    private String upinfo;
+    private String downinfo;
+    private String resnumber;
+    private String mainpic;
+    private String menupic;
+    private String respic;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    private String category;
     private Float xco, yco;
 
     public String getName() {

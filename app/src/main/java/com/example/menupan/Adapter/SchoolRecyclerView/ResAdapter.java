@@ -78,6 +78,7 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ViewHolder> {
 
             ivRes = itemView.findViewById(R.id.item_imageView);
         }
+
     }
 
     /*사용자가 autocompleteTextView에서 검색을 하면 값을 송출해서 보여주는 부분*/
@@ -113,6 +114,7 @@ public class ResAdapter extends RecyclerView.Adapter<ResAdapter.ViewHolder> {
     public void setOnItemClickListener(OnItemClickListener listener){
         this.mListener = listener;
     }
+
 
 
 

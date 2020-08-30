@@ -13,20 +13,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,8 +59,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://45a4f0cc7223.ngrok.io";//서버 주소 : http://172.30.1.54:8000
-    //ngrok 서버 주소 : http://28087b3355c3.ngrok.io
+    private final String BASE_URL = "http://a96d7da755fc.ngrok.io";//서버 주소 : http://172.30.1.54:8000
     private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
@@ -76,6 +79,10 @@ public class main_chungbuk extends AppCompatActivity {
     private List<ReceiveData> list;
     private ProgressBar progressBar;
     private int downloaddata_quantity;
+    private FrameLayout cbnu_framelayout;
+    private Switch jeongmoon_switch, joongmoon_switch, seomoon_switch, hoomoon_switch;
+    private Switch meal_switch, cafe_switch, bar_switch;
+    private Button button_cbnu_filter, button_cbnu_back, button_cbnu_ok;
 
 
 
@@ -85,52 +92,35 @@ public class main_chungbuk extends AppCompatActivity {
         setContentView(R.layout.main_chungbuk_layout);
 
 
-
         AdView mAdView;
         autoCompleteTextList = new ArrayList<String>();//리스트 생성
-        Button button_cbnu_filter = (Button) findViewById(R.id.cbnu_filter);
-        Button button_cbnu_back = (Button) findViewById(R.id.cbnu_option_back);
+        button_cbnu_filter = (Button) findViewById(R.id.cbnu_filter);
+        button_cbnu_back = (Button) findViewById(R.id.cbnu_option_back);
+        button_cbnu_ok = findViewById(R.id.cbnu_option_apply);
         filterView = (LinearLayout) findViewById(R.id.cbnu_linearlayout_filter);
         autoCompleteTextView = findViewById(R.id.cbnu_autoCompleteTextView);
         //searchView = findViewById(R.id.cbnu_SearchView);
         //Data = new SampleData();
         //List<Restaurant> resList = Data.getItems();//밥집 정보들이 담겨 있는 list
         recyclerView = findViewById(R.id.cbnu_recyclerView);
-        waitsign= findViewById(R.id.waitamomnet);
+        waitsign = findViewById(R.id.waitamomnet);
         progressBar = findViewById(R.id.cbnu_progressBar);
+        cbnu_framelayout = findViewById(R.id.cbnu_framelayout);
+        jeongmoon_switch = findViewById(R.id.switch_jeongmoon);
+        joongmoon_switch = findViewById(R.id.switch_joongmoon);
+        seomoon_switch = findViewById(R.id.switch_seomoon);
+        hoomoon_switch = findViewById(R.id.switch_hoomoon);
+        //meal_switch = findViewById(R.id.switch_meal);
+        //cafe_switch = findViewById(R.id.switch_cafe);
+        //bar_switch = findViewById(R.id.switch_bar);
 
+
+
+        //jeongmoon_switch.isChecked()
 
         initReceiveDataAPI(BASE_URL);//서버로부터 연결받는 부분
         addAllItems();//RecyclerView에 사진과 이름(태그) 넣는 부분
 
-
-        //spinKitView = findViewById(R.id.spin_kit);
-        //spinKitView.getIndeterminateDrawable();
-
-        //ArrayList<Restaurant> items = new ArrayList<>();
-//        Restaurant res1 = new Restaurant(R.drawable.burritoin_sample, "브리또인");
-//        Restaurant res2 = new Restaurant(R.drawable.burritoin_sample_2, "브리또인2");
-//        Restaurant res3 = new Restaurant(R.drawable.cement_sample, "씨멘트");
-//        Restaurant res4 = new Restaurant(R.drawable.menya_sample, "멘야마쯔리");
-//        items.add(res1);
-//        items.add(res2);
-//        items.add(res3);
-//        items.add(res4);
-
-
-
-
-
-        /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분*/
-        //burritoin = findViewById(R.id.imageview_burritoin);
-//        burritoin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
-//                startActivity(intent);
-//            }
-//        });
-        /*잘 넘어가는지 확인하기 위해 임시로 넣은 부분 끝*/
 
         /*광고(AdMob) 시작되는 부분*/
         MobileAds.initialize(this, getString(R.string.admob_app_id));
@@ -139,18 +129,18 @@ public class main_chungbuk extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
         //광고가 제대로 로드 되는지 Debug해보는 부분
-        mAdView.setAdListener(new AdListener(){
+        mAdView.setAdListener(new AdListener() {
 
             //광고가 문제 없이 로드시 출력되는 부분
             @Override
-            public void onAdLoaded(){
+            public void onAdLoaded() {
                 Log.d("LOG", "onAdLoaded");
             }
 
             //광고 로드에 문제가 있을 경우 출력되는 부분
             @Override
-            public void onAdFailedToLoad(int errorCode){
-                Log.d("LOG", "onAdFailedToLoad"+errorCode);
+            public void onAdFailedToLoad(int errorCode) {
+                Log.d("LOG", "onAdFailedToLoad" + errorCode);
             }
         });
         /*광고(AdMob) 부분 끝*/
@@ -172,8 +162,8 @@ public class main_chungbuk extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), selected, Toast.LENGTH_LONG).show();//Toast로 띄움
                 adapter.notifyDataSetChanged();
-                for(int j=0;j<items.size();j++){
-                    if(selected.equals(items.get(j).getName())){
+                for (int j = 0; j < items.size(); j++) {
+                    if (selected.equals(items.get(j).getName())) {
                         adapter.filter(items.get(j).getName());
                         adapter.notifyDataSetChanged();
                     }
@@ -193,7 +183,7 @@ public class main_chungbuk extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 String text = charSequence.toString();
-                if(text.length()==0){//텍스트가 0일 때, 즉 사용자가 editText에 모든 값들을 지웠을 때
+                if (text.length() == 0) {//텍스트가 0일 때, 즉 사용자가 editText에 모든 값들을 지웠을 때
                     addAllItems();//모든 값들을 지우고 새로 다시 초기화시킨가
                 }
             }
@@ -208,7 +198,11 @@ public class main_chungbuk extends AppCompatActivity {
         button_cbnu_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFilter();
+                if(filterView.getVisibility() == View.VISIBLE){
+                    hideFilter();
+                }else{
+                    showFilter();
+                }
             }
         });
 
@@ -233,13 +227,13 @@ public class main_chungbuk extends AppCompatActivity {
         adapter.setOnItemClickListener(new ResAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                for(int i = 0 ; i < list.size(); i++){
+                for (int i = 0; i < list.size(); i++) {
                     /*items.get(i).getName()은 아이템의 모든 이름들을 돌아가면서 확인하는 것이고,
                      * adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다
                      * 둘이 같으면 인텐트로 해당 이름을 가진 음식점의 메뉴판과 정보가 담긴 화면으로 넘겨준다.*/
                     //if(items.get(i).getName().equals(adapter.items.get(position).getName())){
                     System.out.println("@@@" + list.get(i).getName() + " // " + adapter.items.get(position).getName() + " // " + i);
-                    if(list.get(i).getName().equals(adapter.items.get(position).getName())){//list.get(i).getName()은 리스트에 들어 있는 모든 아이템들이다.
+                    if (list.get(i).getName().equals(adapter.items.get(position).getName())) {//list.get(i).getName()은 리스트에 들어 있는 모든 아이템들이다.
                         //adapter.items.get(position).getName()은 사용자가 클릭한 아이템의 이름을 확인하는 것이다.
                         //TODO 여기서 intent 넘겨줄 때 DB에서 값들을 받아와서 intent에 같이 넘겨주는 식으로 하기
                         //double xco = items.get(i).getXco();//x좌표
@@ -247,8 +241,8 @@ public class main_chungbuk extends AppCompatActivity {
                         //double yco = items.get(i).getYco();//y좌표
 
                         Intent intent = new Intent(getApplicationContext(), Frame_Front.class);
-                        xco=list.get(i).getXco();
-                        yco=list.get(i).getYco();
+                        xco = list.get(i).getXco();
+                        yco = list.get(i).getYco();
                         upinfo = list.get(i).getUpinfo();
                         downinfo = list.get(i).getDowninfo();
                         resnumber = list.get(i).getResnumber();
@@ -287,16 +281,89 @@ public class main_chungbuk extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                int lastVisibleItemPosition = ((LinearLayoutManager)recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
+                int lastVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition();
                 int itemTotalCount = recyclerView.getAdapter().getItemCount();
 
-                if(lastVisibleItemPosition + 1==itemTotalCount){//혹시 안되면 +1빼기 , +1을 해줘야 하는 이유는 position은 0부터 카운트해서 총 갯수보다 하나 적기 때문이다.
+                if (lastVisibleItemPosition + 1 == itemTotalCount) {//혹시 안되면 +1빼기 , +1을 해줘야 하는 이유는 position은 0부터 카운트해서 총 갯수보다 하나 적기 때문이다.
                     //TODO
                 }
             }
         });
-    }
 
+        /*필터에서 스위치 버튼 누르고 ok누르면 filter창 닫히는 코드*/
+        button_cbnu_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                items.clear();
+                progressBar.setVisibility(View.VISIBLE);
+                if(jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("중문");
+                    addItems("서문");
+                }
+                else if(jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("중문");
+                    addItems("후문");
+                }
+                else if(jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("서문");
+                    addItems("후문");
+                }
+                else if(!jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("중문");
+                    addItems("서문");
+                    addItems("후문");
+                }
+                else if(jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("중문");
+                }
+                else if(jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("서문");
+                }
+                else if(!jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("중문");
+                    addItems("서문");
+                }
+                else if(jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("정문");
+                    addItems("후문");
+                }
+                else if(!jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("중문");
+                    addItems("후문");
+                }
+                else if(!jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("서문");
+                    addItems("후문");
+                }
+                else if(jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("정문");
+                }
+                else if(!jeongmoon_switch.isChecked() && joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("중문");
+                }
+                else if(!jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    addItems("서문");
+                }
+                else if(!jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && hoomoon_switch.isChecked()){
+                    addItems("후문");
+                }
+                else if(!jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
+                    Toast.makeText(getApplicationContext(), "아무것도 선택하지 않았습니다.", Toast.LENGTH_LONG).show();//Toast로 띄움
+
+                }
+                else{
+                    addAllItems();
+                }
+                adapter.notifyDataSetChanged();
+                hideFilter();
+            }
+        });
+    }
 
 
     /*필터 버튼 클릭하면 필터를 화면 위로 보여줌*/
@@ -310,7 +377,66 @@ public class main_chungbuk extends AppCompatActivity {
         filterView.setVisibility(View.INVISIBLE);//Gone과 Invisible은 View가 보이지 않는다. 차이는 Invisible은 레이아웃을 위한 영역을 차지하고, Gone은 레이아웃을 위한 영역을 차지 안함
     }
 
-    public ArrayList<Restaurant> addAllItems(){
+    public ArrayList<Restaurant> addItems(String option) {
+
+        //adapter.notifyDataSetChanged();
+
+        /*서버로부터 데이터 받아오는 부분*/
+        Log.d(Tag, "GET");
+        Call<List<ReceiveData>> getCall = receiveDataAPI.get_posts();
+        getCall.enqueue(new Callback<List<ReceiveData>>() {
+            @Override
+            public void onResponse(Call<List<ReceiveData>> call, Response<List<ReceiveData>> response) {
+                /*송수신이 잘 될 때 첫 번째 조건문으로 들어감*/
+                if (response.isSuccessful()) {
+                    System.out.println("@@@서버와 송수신이 잘 됨");
+                    list = response.body();//원래는 여기서 list를 선언했엇음
+                    for (int i = 0; i < list.size(); i++) {
+                        Drawable drawable_mainpic = null;
+
+                        /*만약 FrameLayout에서 체크한 option이 같다면 여기 더해줌
+                        * ex)option이 중문이라면, 중문과 같다면 items에 더해줌*/
+                        System.out.println(" @@@ " + list.get(i).getLocation() + " @@@ " + option);
+                        if(list.get(i).getLocation().equals(option)) {
+                            System.out.println(" ### " + list.get(i).getLocation() + " ### " + option);
+                            try {
+                                Bitmap bitmap;
+                                ImageView imageView = findViewById(R.id.tempimageview);
+                                DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
+                                bitmap = downloadImageTask.execute(list.get(i).getMainpic()).get();
+
+                                drawable_mainpic = new BitmapDrawable(bitmap);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            Restaurant res = new Restaurant(drawable_mainpic, list.get(i).getName());
+                            System.out.println("@@@@" + list.get(i).getMainpic());
+                            items.add(res);
+                        }
+
+                        autoCompleteTextList.add(list.get(i).getName());//자동완성 목록에 이름 추가하는 부분
+                    }
+                    /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
+                } else {
+                    System.out.println("@@@onResponse로는 잘 들어왔지만 서버 오류가 있음");
+                    Log.d(Tag, "Status Code : " + response.code());
+                }
+            }
+
+            /*애초에 서버와 송수신이 불가능할 경우 아래 onFailure로 들어간다. 서버에 문제가 있는 것, 아예 켜 놓지를 않았던가*/
+            @Override
+            public void onFailure(Call<List<ReceiveData>> call, Throwable t) {
+                System.out.println("@@@onFailure로 들어옴, 아예 서버와 연결도 안되는 부분");
+                Log.d(Tag, "Fail msg : " + t.getMessage());
+            }
+        });
+        /*서버로부터 데이터 받아오는 부분 끝*/
+
+
+        return items;
+    }
+
+    public ArrayList<Restaurant> addAllItems() {
         items.clear();
         adapter.notifyDataSetChanged();
 
@@ -321,14 +447,14 @@ public class main_chungbuk extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ReceiveData>> call, Response<List<ReceiveData>> response) {
                 /*송수신이 잘 될 때 첫 번째 조건문으로 들어감*/
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     System.out.println("@@@서버와 송수신이 잘 됨");
                     list = response.body();//원래는 여기서 list를 선언했엇음
                     //for(int i = 0 ; i < list.size();i++){
-                    for(int i = 0 ; i < list.size();i++){
+                    for (int i = 0; i < list.size(); i++) {
                         //progressBar.setProgress((list.size()/(i+1))*100);
                         Drawable drawable_mainpic = null;
-                        try{
+                        try {
                             Bitmap bitmap;
                             ImageView imageView = findViewById(R.id.tempimageview);
                             DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
@@ -336,7 +462,7 @@ public class main_chungbuk extends AppCompatActivity {
                             bitmap = downloadImageTask.execute(list.get(i).getMainpic()).get();
 
                             drawable_mainpic = new BitmapDrawable(bitmap);
-                        }catch(Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         //System.out.println(getString(R.string.loading_text, i, list.size()));
@@ -351,11 +477,12 @@ public class main_chungbuk extends AppCompatActivity {
                         items.add(res);
                     }
                     /*반면에 송수신이 잘 되었지만 서버에 문제가 있을 경우 아래 조건문으로 들어간다*/
-                }else{
+                } else {
                     System.out.println("@@@onResponse로는 잘 들어왔지만 서버 오류가 있음");
                     Log.d(Tag, "Status Code : " + response.code());
                 }
             }
+
             /*애초에 서버와 송수신이 불가능할 경우 아래 onFailure로 들어간다. 서버에 문제가 있는 것, 아예 켜 놓지를 않았던가*/
             @Override
             public void onFailure(Call<List<ReceiveData>> call, Throwable t) {
@@ -370,7 +497,7 @@ public class main_chungbuk extends AppCompatActivity {
     }
 
     /*서버부분*/
-    private void initReceiveDataAPI(String baseUrl){
+    private void initReceiveDataAPI(String baseUrl) {
         Log.d(Tag, "initReceiveDataAPI : " + baseUrl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -381,7 +508,7 @@ public class main_chungbuk extends AppCompatActivity {
     }
 
     /*BLOB형식(byte형식)을 bitmap형식으로 반환해서 이미지로 보여줄 수 있게 해주는 함수*/
-    public Bitmap getAppIcon(byte[] b){
+    public Bitmap getAppIcon(byte[] b) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
         return bitmap;
     }
@@ -400,7 +527,7 @@ public class main_chungbuk extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
+            //progressBar.setVisibility(View.VISIBLE);
             //spinKitView = findViewById(R.id.spin_kit);
             //spinKitView.getIndeterminateDrawable();
         }
@@ -425,6 +552,5 @@ public class main_chungbuk extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
         }
     }
-
 
 }
