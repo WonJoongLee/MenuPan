@@ -59,7 +59,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://a96d7da755fc.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+    private final String BASE_URL = "http://9f4a8a9906ac.ngrok.io";//서버 주소 : http://172.30.1.54:8000
     private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
@@ -354,7 +354,7 @@ public class main_chungbuk extends AppCompatActivity {
                 }
                 else if(!jeongmoon_switch.isChecked() && !joongmoon_switch.isChecked() && !seomoon_switch.isChecked() && !hoomoon_switch.isChecked()){
                     Toast.makeText(getApplicationContext(), "아무것도 선택하지 않았습니다.", Toast.LENGTH_LONG).show();//Toast로 띄움
-
+                    progressBar.setVisibility(View.GONE);//addItems로 들어가지 않아 progressBar가 없어지지 않으므로 여기서 대신 없애준다
                 }
                 else{
                     addAllItems();

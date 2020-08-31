@@ -22,7 +22,7 @@ public class LoginSignupScreen extends AppCompatActivity {
         contact_us.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://open.kakao.com/o/sfJP1qZb"));
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/view/wonjoong"));
                 startActivity(intent);
             }
         });

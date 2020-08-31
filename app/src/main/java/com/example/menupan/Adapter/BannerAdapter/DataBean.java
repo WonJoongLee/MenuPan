@@ -18,8 +18,9 @@ public class DataBean {
 
     public static List<DataBean> getTestData(){
         List<DataBean> list = new ArrayList<>();
-        list.add(new DataBean(R.drawable.notice_image, "메뉴판 정식 출시", 1));
-        list.add(new DataBean(R.drawable.test_screen_2, "업데이트 내용", 3));
+        list.add(new DataBean(R.drawable.notice_image_1, "메뉴판 정식 출시", 1));
+        list.add(new DataBean(R.drawable.notice_image_2, "업데이트 내용", 2));
+        list.add(new DataBean(R.drawable.notice_image_3, "광고 문의", 3));
         return list;
     }
 }

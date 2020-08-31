@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 .setIndicatorSelectedWidth((int) BannerUtils.dp2px(12))
                 .setIndicatorSpace((int)BannerUtils.dp2px(4))
                 .setIndicatorRadius(0)
+                .setDelayTime(5000)
                 .setOnBannerListener((data, position) -> {
                     Snackbar.make(banner, ((DataBean) data).title, Snackbar.LENGTH_SHORT).show();
                     LogUtils.d("position : " + position);
