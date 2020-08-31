@@ -31,6 +31,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,7 +60,7 @@ public class main_chungbuk extends AppCompatActivity {
 
     /*아래 세 개는 서버와 관련 된 부분이다*/
     private final String Tag = getClass().getSimpleName();
-    private final String BASE_URL = "http://9f4a8a9906ac.ngrok.io";//서버 주소 : http://172.30.1.54:8000
+    private final String BASE_URL = "http://582f45b5d7c8.ngrok.io";//서버 주소 : http://172.30.1.54:8000
     private ReceiveDataAPI receiveDataAPI;
 
     private List<String> autoCompleteTextList;
@@ -395,7 +396,7 @@ public class main_chungbuk extends AppCompatActivity {
                         Drawable drawable_mainpic = null;
 
                         /*만약 FrameLayout에서 체크한 option이 같다면 여기 더해줌
-                        * ex)option이 중문이라면, 중문과 같다면 items에 더해줌*/
+                         * ex)option이 중문이라면, 중문과 같다면 items에 더해줌*/
                         System.out.println(" @@@ " + list.get(i).getLocation() + " @@@ " + option);
                         if(list.get(i).getLocation().equals(option)) {
                             System.out.println(" ### " + list.get(i).getLocation() + " ### " + option);
